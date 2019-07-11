@@ -41,6 +41,12 @@ export default function(state = initialState, action) {
         ...state,
         bedTemp: action.payload
       };
+    case PING_JOB_STATUS:
+      return {
+        ...state,
+        printProgress: action.payload.progress.completion,
+        printTimeLeft: action.payload.progress.printTimeLeft
+      };
     default:
       return state;
   }
