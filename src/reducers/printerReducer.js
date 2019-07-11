@@ -53,6 +53,15 @@ export default function(state = initialState, action) {
         ...state,
         connectionStatus: action.connectionStatus
       };
+    case PING_PRINTER_STATUS:
+      return {
+        ...state,
+        toolTemp: action.payload.toolTemp,
+        toolTempTarget: action.payload.toolTempTarget,
+        bedTemp: action.payload.bedTemp,
+        bedTempTarget: action.payload.bedTempTarget,
+        printerStatus: action.payload.printerStatus
+      };
     case SELECT_PRINTER:
       return {
         ...state,

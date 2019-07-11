@@ -1,4 +1,4 @@
-import { SET_BED_TEMP, SET_TOOL_TEMP, PING_JOB_STATUS, PING_CONNECTION_STATUS, SELECT_PRINTER } from './types';
+import { SET_BED_TEMP, SET_TOOL_TEMP, PING_JOB_STATUS, PING_CONNECTION_STATUS, PING_PRINTER_STATUS,  SELECT_PRINTER } from './types';
 import superagent from 'superagent';
 
 function printerCredentials(printer) {
@@ -45,7 +45,7 @@ export const selectPrinter = (printer) => dispatch => {
 }
 
 export const pingJobStatus = (printer) => dispatch => {
-  console.log('setting bed temp')
+  console.log('pingJobStatus', printer)
   let credentials = printerCredentials(printer);
   superagent
     .get(credentials.url + '/api/job')
@@ -63,7 +63,8 @@ export const pingJobStatus = (printer) => dispatch => {
 }
 
 export const pingConnectionStatus = (printer) => dispatch => {
-  console.log('setting bed temp')
+  // TODO: is this irrelevant with the pingPrinterStatus (printerstatus)?
+  console.log('pingConnectionStatus', printer)
   let credentials = printerCredentials(printer);
   superagent
     .get(credentials.url + '/api/connection')
@@ -75,6 +76,32 @@ export const pingConnectionStatus = (printer) => dispatch => {
         dispatch({
           type: PING_CONNECTION_STATUS,
           connectionStatus: res.body.current.state
+        })
+      }
+    });
+}
+
+export const pingPrinterStatus = (printer) => dispatch => {
+  console.log('pingPrinterStatus', printer)
+  let credentials = printerCredentials(printer);
+  superagent
+    .get(credentials.url + '/api/printer')
+    .set('X-Api-Key', credentials.apiKey)
+    .end((err, res) => {
+      if (err) {
+        console.error(err);
+      } else {
+        let payload = {
+          toolTemp: res.body.temperature.tool0.actual,
+          toolTempTarget: res.body.temperature.tool0.target,
+          bedTemp: res.body.temperature.bed.actual,
+          bedTempTarget: res.body.temperature.bed.target,
+          printerStatus: res.body.state.text
+        }
+
+        dispatch({
+          type: PING_PRINTER_STATUS,
+          payload: payload
         })
       }
     });

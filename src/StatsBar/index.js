@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Row, Col} from 'react-materialize';
 
-import { pingJobStatus, pingConnectionStatus } from '../actions/printerActions';
+import { pingJobStatus, pingConnectionStatus, pingPrinterStatus } from '../actions/printerActions';
 
 import './style.css';
 
@@ -17,6 +17,10 @@ class StatsBar extends Component {
 
     setInterval(function() {
       that.props.pingConnectionStatus(that.props.selectedPrinter);
+    }, 1000);
+
+    setInterval(function() {
+      that.props.pingPrinterStatus(that.props.selectedPrinter);
     }, 1000);
   }
 
@@ -86,4 +90,4 @@ const mapStateToProps = state => ({
   printTimeLeft: state.printers.printTimeLeft
 })
 
-export default connect(mapStateToProps, { pingJobStatus, pingConnectionStatus })(StatsBar);
+export default connect(mapStateToProps, { pingJobStatus, pingConnectionStatus, pingPrinterStatus })(StatsBar);
