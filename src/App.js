@@ -6,15 +6,17 @@ import reduxStore from './redux-store';
 
 import StatsBar from './StatsBar';
 import PrinterSelect from './PrinterSelect';
+import BorderWrapper from './BorderWrapper';
 
 class App extends Component {
   render() {
     return (
       <Provider store={reduxStore}>
         <div className="App">
-          <StatsBar />
-          <PrinterSelect />
-          <h1>test</h1>
+          <BorderWrapper>
+            <StatsBar />
+            <PrinterSelect />
+          </BorderWrapper>
         </div>
       </Provider>
     );

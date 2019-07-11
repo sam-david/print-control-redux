@@ -1,0 +1,16 @@
+@import '../Components/colors';
+
+.print-control-container {
+  &.makergear{
+    border: solid $makergear-grey 10px;
+  }
+  &.lulzbot{
+    border: solid $lulzbot-green 10px;
+  }
+  &.ender{
+    border: solid $ender-blue 10px;
+  }
+  &.prusa{
+    border: solid $prusa-orange 10px;
+  }
+}

@@ -1,11 +1,4 @@
-$makergear-orange: #ff9800;
-$makergear-true-orange: #ff7f35;
-$makergear-grey: #333333;
-$lulzbot-green: #c1d82e;
-$prusa-grey: #2e2e2e;
-$prusa-orange: #ed6b21;
-$creality-blue: #009ce6;
-$creality-orange: #ee8300;
+@import '../Components/colors';
 
 .makergear-logo {
   fill: white;
