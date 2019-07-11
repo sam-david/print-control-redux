@@ -6,7 +6,7 @@ import reduxStore from './redux-store';
 
 import StatsBar from './StatsBar';
 import NavBar from './NavBar';
-import PrinterSelect from './PrinterSelect';
+import PageView from './PageView';
 import BorderWrapper from './BorderWrapper';
 
 class App extends Component {
@@ -17,7 +17,7 @@ class App extends Component {
           <BorderWrapper>
             <StatsBar />
             <NavBar />
-            <PrinterSelect />
+            <PageView />
           </BorderWrapper>
         </div>
       </Provider>

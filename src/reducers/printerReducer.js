@@ -30,7 +30,6 @@ const initialState = {
 };
 
 export default function(state = initialState, action) {
-  console.log('printerReducer')
   switch(action.type) {
     case CONNECT_TO_PRINTER:
       return {
@@ -65,7 +64,8 @@ export default function(state = initialState, action) {
     case SELECT_PRINTER:
       return {
         ...state,
-        selectedPrinter: action.printer
+        selectedPrinter: action.printer,
+        printerStatus: null
       };
     default:
       return state;

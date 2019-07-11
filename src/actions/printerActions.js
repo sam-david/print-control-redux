@@ -1,4 +1,4 @@
-import { SET_BED_TEMP, SET_TOOL_TEMP, PING_JOB_STATUS, PING_CONNECTION_STATUS, PING_PRINTER_STATUS,  SELECT_PRINTER } from './types';
+import { SET_BED_TEMP, SET_TOOL_TEMP, PING_JOB_STATUS, PING_CONNECTION_STATUS, PING_PRINTER_STATUS,  SELECT_PRINTER, CONNECT_TO_PRINTER } from './types';
 import superagent from 'superagent';
 
 function printerCredentials(printer) {
@@ -34,6 +34,25 @@ export const setBedTemp = (postData) => dispatch => {
       type: SET_BED_TEMP,
       payload: postData
     }));
+}
+
+export const connectToPrinter = (printer) => dispatch => {
+  console.log('connectToPrinter', printer)
+  let credentials = printerCredentials(printer);
+  superagent
+    .post(credentials.url + '/api/connection')
+    .send({ command: 'connect'})
+    .set('X-Api-Key', credentials.apiKey)
+    .end((err, res) => {
+      console.log("CONNECT RESPONSE", res);
+      if (err) {
+        console.error(err);
+      } else {
+        dispatch({
+          type: CONNECT_TO_PRINTER
+        })
+      }
+    });
 }
 
 export const selectPrinter = (printer) => dispatch => {

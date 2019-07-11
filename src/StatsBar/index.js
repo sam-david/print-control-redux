@@ -20,7 +20,9 @@ class StatsBar extends Component {
     }, 1000);
 
     setInterval(function() {
-      that.props.pingPrinterStatus(that.props.selectedPrinter);
+      if (that.props.connectionStatus != 'Closed') {
+        that.props.pingPrinterStatus(that.props.selectedPrinter);
+      }
     }, 1000);
   }
 
@@ -61,7 +63,7 @@ class StatsBar extends Component {
         return (
           <Row className="stat-bar-row">
             <Col s={12}>
-              <p>NO STATUS</p>
+              <p className="red darken-2">NOT CONNECTED</p>
             </Col>
           </Row>
         )
