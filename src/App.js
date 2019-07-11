@@ -5,6 +5,7 @@ import { Provider } from 'react-redux';
 import reduxStore from './redux-store';
 
 import StatsBar from './StatsBar';
+import NavBar from './NavBar';
 import PrinterSelect from './PrinterSelect';
 import BorderWrapper from './BorderWrapper';
 
@@ -15,6 +16,7 @@ class App extends Component {
         <div className="App">
           <BorderWrapper>
             <StatsBar />
+            <NavBar />
             <PrinterSelect />
           </BorderWrapper>
         </div>
