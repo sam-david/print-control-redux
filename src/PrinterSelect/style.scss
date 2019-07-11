@@ -17,6 +17,14 @@
 .makergear-select-button {
   background-color: $makergear-grey !important;
   color: black;
+}
+
+.makergear-select-button, .ender-select-button {
+  border-right: solid black 5px;
+  border-left: solid black 5px;
+}
+
+.lulzbot-select-button, .prusa-select-button {
   border-right: solid black 5px;
 }
 
@@ -28,7 +36,6 @@
 .ender-select-button {
   background-color: $creality-blue !important;
   color: black;
-  border-right: solid black 5px;
 }
 
 .prusa-select-button {
