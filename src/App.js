@@ -5,6 +5,7 @@ import { Provider } from 'react-redux';
 import reduxStore from './redux-store';
 
 import StatsBar from './StatsBar';
+import PrinterSelect from './PrinterSelect';
 
 class App extends Component {
   render() {
@@ -12,6 +13,7 @@ class App extends Component {
       <Provider store={reduxStore}>
         <div className="App">
           <StatsBar />
+          <PrinterSelect />
           <h1>test</h1>
         </div>
       </Provider>

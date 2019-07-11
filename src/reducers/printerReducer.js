@@ -9,7 +9,8 @@ import {
   CANCEL_JOB,
   PING_JOB_STATUS,
   PING_CONNECTION_STATUS,
-  PING_PRINTER_STATUS
+  PING_PRINTER_STATUS,
+  SELECT_PRINTER
 } from '../actions/types';
 
 const initialState = {
@@ -46,6 +47,16 @@ export default function(state = initialState, action) {
         ...state,
         printProgress: action.payload.progress.completion,
         printTimeLeft: action.payload.progress.printTimeLeft
+      };
+    case PING_CONNECTION_STATUS:
+      return {
+        ...state,
+        connectionStatus: action.connectionStatus
+      };
+    case SELECT_PRINTER:
+      return {
+        ...state,
+        selectedPrinter: action.printer
       };
     default:
       return state;

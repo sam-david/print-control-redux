@@ -1,4 +1,4 @@
-import { SET_BED_TEMP, SET_TOOL_TEMP, PING_JOB_STATUS } from './types';
+import { SET_BED_TEMP, SET_TOOL_TEMP, PING_JOB_STATUS, PING_CONNECTION_STATUS, SELECT_PRINTER } from './types';
 import superagent from 'superagent';
 
 function printerCredentials(printer) {
@@ -36,21 +36,46 @@ export const setBedTemp = (postData) => dispatch => {
     }));
 }
 
+export const selectPrinter = (printer) => dispatch => {
+    console.log('selectPrinter', printer)
+    dispatch({
+      type: SELECT_PRINTER,
+      printer: printer
+    })
+}
 
-export const pingJobStatus = () => dispatch => {
-    console.log('setting bed temp')
-    let credentials = printerCredentials('makergear');
-    superagent
-      .get(credentials.url + '/api/job')
-      .set('X-Api-Key', credentials.apiKey)
-      .end((err, res) => {
-        if (err) {
-          console.error(err);
-        } else {
-          dispatch({
-            type: PING_JOB_STATUS,
-            payload: res.body
-          })
-        }
-      });
+export const pingJobStatus = (printer) => dispatch => {
+  console.log('setting bed temp')
+  let credentials = printerCredentials(printer);
+  superagent
+    .get(credentials.url + '/api/job')
+    .set('X-Api-Key', credentials.apiKey)
+    .end((err, res) => {
+      if (err) {
+        console.error(err);
+      } else {
+        dispatch({
+          type: PING_JOB_STATUS,
+          payload: res.body
+        })
+      }
+    });
+}
+
+export const pingConnectionStatus = (printer) => dispatch => {
+  console.log('setting bed temp')
+  let credentials = printerCredentials(printer);
+  superagent
+    .get(credentials.url + '/api/connection')
+    .set('X-Api-Key', credentials.apiKey)
+    .end((err, res) => {
+      if (err) {
+        console.error(err);
+      } else {
+        dispatch({
+          type: PING_CONNECTION_STATUS,
+          connectionStatus: res.body.current.state
+        })
+      }
+    });
 }

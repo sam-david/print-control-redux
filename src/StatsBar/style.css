@@ -1,0 +1,20 @@
+.stat-bar-row {
+  padding-top: 15px;
+  padding-bottom: 15px;
+  font-size: 2em;
+  background-color: black;
+  margin-bottom: 0;
+  font-family: 'Bungee';
+}
+
+.tool-temp {
+  color: #b71c1c;
+}
+
+.bed-temp {
+  color: #1565c0;
+}
+
+.print-status {
+  color: green;
+}

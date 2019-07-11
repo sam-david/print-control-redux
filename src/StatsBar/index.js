@@ -3,7 +3,9 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Row, Col} from 'react-materialize';
 
-import { pingJobStatus } from '../actions/printerActions';
+import { pingJobStatus, pingConnectionStatus } from '../actions/printerActions';
+
+import './style.css';
 
 class StatsBar extends Component {
 
@@ -11,6 +13,10 @@ class StatsBar extends Component {
     let that = this;
     setInterval(function() {
       that.props.pingJobStatus(that.props.selectedPrinter);
+    }, 1000);
+
+    setInterval(function() {
+      that.props.pingConnectionStatus(that.props.selectedPrinter);
     }, 1000);
   }
 
@@ -35,7 +41,7 @@ class StatsBar extends Component {
 
       if (this.props.connectionStatus != 'Closed' && this.props.connectionStatus != null) {
         return (
-          <Row className="top-nav-row">
+          <Row className="stat-bar-row">
             <Col s={4}>
               <span className="tool-temp">T: { this.props.toolTemp }°C {targetToolTemp}</span>
             </Col>
@@ -49,7 +55,7 @@ class StatsBar extends Component {
         )
       } else {
         return (
-          <Row className="top-nav-row">
+          <Row className="stat-bar-row">
             <Col s={12}>
               <p>NO STATUS</p>
             </Col>
@@ -60,7 +66,9 @@ class StatsBar extends Component {
 }
 
 StatsBar.propTypes = {
-  selectedPrinter: PropTypes.string
+  selectedPrinter: PropTypes.string,
+  pingConnectionStatus: PropTypes.func,
+  pingJobStatus: PropTypes.func
 }
 
 const mapStateToProps = state => ({
@@ -78,4 +86,4 @@ const mapStateToProps = state => ({
   printTimeLeft: state.printers.printTimeLeft
 })
 
-export default connect(mapStateToProps, { pingJobStatus })(StatsBar);
+export default connect(mapStateToProps, { pingJobStatus, pingConnectionStatus })(StatsBar);

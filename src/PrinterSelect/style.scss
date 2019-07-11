@@ -1,0 +1,59 @@
+$makergear-orange: #ff9800;
+$makergear-true-orange: #ff7f35;
+$makergear-grey: #333333;
+$lulzbot-green: #c1d82e;
+$prusa-grey: #2e2e2e;
+$prusa-orange: #ed6b21;
+$creality-blue: #009ce6;
+$creality-orange: #ee8300;
+
+.makergear-logo {
+  fill: white;
+
+}
+
+.ender-logo {
+  fill: white;
+}
+
+.lulzbot-logo, .makergear-logo, .ender-logo, .prusa-logo {
+  width: 100%;
+  height: 100px;
+}
+
+.makergear-select-button {
+  background-color: $makergear-grey !important;
+  color: black;
+  border-right: solid black 5px;
+}
+
+.lulzbot-select-button {
+  background-color: $lulzbot-green !important;
+  color: black;
+}
+
+.ender-select-button {
+  background-color: $creality-blue !important;
+  color: black;
+  border-right: solid black 5px;
+}
+
+.prusa-select-button {
+  background-color: $prusa-orange !important;
+  color: black;
+}
+
+.printer-select-container {
+
+}
+
+.printer-select {
+  height: 150px;
+  font-size: 4em;
+  padding-top: 25px !important;
+}
+
+.printer-select-row {
+  margin-bottom: 0;
+  border-bottom: black solid 5px;
+}
