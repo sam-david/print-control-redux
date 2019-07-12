@@ -58,10 +58,41 @@ class Files extends Component {
     }
   }
 
+  renderFileGrams(file) {
+    let volumeConversionsByType = {
+      "PLA": 1.24,
+      "ABS": 1.04,
+      "ASA": 1.07,
+      "PETG": 1.27,
+      "Nylon": 1.08,
+      "Polycarbonate": 1.20,
+      "HIPS": 1.07,
+      "PVA": 1.19,
+      "TPU/TPE": 1.20,
+      "PMMA": 1.18,
+      "CopperFill": 3.90
+    }
+
+    let filamentLength = file.gcodeAnalysis.filament.tool0.length;
+    let diameter = 1.75;
+    let radius = diameter / 2;
+    let volume = (Math.PI * radius ** 2 * filamentLength) / 1000.0;
+    let finalVolume = volume * volumeConversionsByType['PLA'];
+    return (
+      finalVolume.toFixed(2) + " g."
+    )
+  }
+
   renderFileButton(file) {
     if (this.props.printerStatus == 'Operational') {
-      return <Button className="button" waves='light' onClick={() => this.props.selectAndPrintFile(this.props.selectedPrinter, file)}>Start Print</Button>
+      return <Button className="button" waves='light' onClick={() => this.props.selectAndPrintFile(this.props.selectedPrinter, file)}>Start</Button>
     }
+  }
+
+  renderPrintDimensions(file) {
+    return (
+      Math.round(file.gcodeAnalysis.dimensions.width) + "mm x " + Math.round(file.gcodeAnalysis.dimensions.depth) + "mm x " + Math.round(file.gcodeAnalysis.dimensions.height) + "mm"
+    )
   }
 
   renderFailIcon(file) {
@@ -147,7 +178,7 @@ class Files extends Component {
             <CollapsibleItem key={index} header={file.name.replace('.gcode','').replace('.maf', '')}>
               <Row className="file-content-row">
                 <Col s={4} className="file-name-date-column">
-                  <span className="file-name">{file.name.substring(0, 40)} {file.name.includes('.maf') ? <img className='mosaic-logo' src={mosaicLogo} /> : '' }</span> <br />
+                  <span className="file-name">{file.name.substring(0, 35)} {file.name.includes('.maf') ? <img className='mosaic-logo' src={mosaicLogo} /> : '' }</span> <br />
                   <p className="file-date" >
                     <Moment format="dd - MM/DD">{file.date * 1000}</Moment> {this.estimatedPrintTime(file)} | {this.bytesToSize(file.size)}
                   </p>
@@ -157,8 +188,8 @@ class Files extends Component {
                   {this.renderFailIcon(file)}
                 </Col>
                 <Col s={2} className="file-date">
-                  <span >{this.bytesToSize(file.size)}</span> <br />
-                  <Moment format="dd - MM/DD">{file.date * 1000}</Moment>
+                  {this.renderPrintDimensions(file)} <br />
+                  {this.renderFileGrams(file)}
                 </Col>
                 <Col s={2}>
                   { this.renderFileButton(file) }
