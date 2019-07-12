@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 import { Provider } from 'react-redux';
-
+import M from 'materialize-css';
 import reduxStore from './redux-store';
 
 import StatsBar from './StatsBar';
@@ -10,6 +10,10 @@ import PageView from './PageView';
 import BorderWrapper from './BorderWrapper';
 
 class App extends Component {
+  componentWillMount() {
+    M.AutoInit();
+  }
+
   render() {
     return (
       <Provider store={reduxStore}>
