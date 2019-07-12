@@ -3,21 +3,11 @@ import PropTypes from 'prop-types';
 import { Row, Col} from 'react-materialize';
 import { connect } from 'react-redux';
 
-import Jog from './Jog';
-import Extrude from './Extrude';
-import Temp from './Temp';
-
-class PrinterControls extends Component {
+class Nanoleaf extends Component {
   render() {
     return(
       <div>
-      <Row>
-        <Col s={6}>
-          <Temp />
-        </Col>
-      </Row>
-        PrinterControls
-
+        Nanoleaf
       </div>
     )
   }
@@ -27,4 +17,4 @@ const mapStateToProps = state => ({
   selectedPage: state.nav.selectedPage
 })
 
-export default connect(mapStateToProps, {})(PrinterControls);
+export default connect(mapStateToProps, {})(Nanoleaf);

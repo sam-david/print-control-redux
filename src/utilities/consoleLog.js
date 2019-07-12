@@ -1,22 +1,24 @@
 
+const functionStyling = 'color: orange; font-weight: bold;';
+
 export const successConsoleLog = (functionName, message) => {
-  console.log('%c ' + functionName + ': %c' + message, 'color: orange; font-weight: bold;', 'color: white; background: green;');
+  console.log('%c ' + functionName + ': %c' + message, functionStyling, 'color: white; background: green;');
 }
 
 export const errorConsoleLog = (functionName, message) => {
-  console.log('%c ' + functionName + ': %c' + message, 'color: orange; font-weight: bold;', 'color: white; font-weight: bold; background: red;');
+  console.log('%c ' + functionName + ': %c' + message, functionStyling, 'color: white; font-weight: bold; background: red;');
 }
 
 export const pingConsoleLog = (functionName, message) => {
   if (typeof(message) == 'object') {
-    console.log('%c ' + functionName + ': %c' + JSON.stringify(message), 'color: orange; font-weight: bold;', 'color: green;');
+    console.log('%c ' + functionName + ': %c' + JSON.stringify(message), functionStyling, 'color: green;');
   } else {
-    console.log('%c ' + functionName + ': %c' + message, 'color: orange; font-weight: bold;', 'color: green;');
+    console.log('%c ' + functionName + ': %c' + message, functionStyling, 'color: green;');
   }
 }
 
-export const phatConsoleLog = (message) => {
-  let styles = [
+export const phatConsoleLog = (functionName, message, res) => {
+  let phatMessageStyles = [
     'background: linear-gradient(#D33106, #571402)'
     , 'border: 1px solid #3E0E02'
     , 'color: white'
@@ -28,5 +30,10 @@ export const phatConsoleLog = (message) => {
     , 'font-weight: bold'
   ].join(';');
 
-  console.log('%c ' + message, styles);
+  if (typeof(res) == 'object') {
+  console.log('%c ' + functionName + ': %c' + message + ': %c' + JSON.stringify(res), functionStyling, phatMessageStyles, '');
+  } else {
+  console.log('%c ' + functionName + ': %c' + message + ': %c' + res, functionStyling, phatMessageStyles, '');
+    console.log('%c ' + functionName + ': %c' + message, functionStyling, 'color: green;');
+  }
 }

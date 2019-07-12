@@ -2,10 +2,8 @@ import {
   CONNECT_TO_PRINTER,
   HOME_PRINTER,
   GET_FILES,
-  JOG_PRINTHEAD,
   SET_TOOL_TEMP,
   SET_BED_TEMP,
-  EXTRUDE_TOOL,
   CANCEL_JOB,
   PING_JOB_STATUS,
   PING_CONNECTION_STATUS,
@@ -44,12 +42,12 @@ export default function(state = initialState, action) {
     case SET_BED_TEMP:
       return {
         ...state,
-        bedTemp: action.payload
+        bedTempTarget: action.temp
       };
     case SET_TOOL_TEMP:
       return {
         ...state,
-        bedTemp: action.payload
+        toolTempTarget: action.temp
       };
     case PING_JOB_STATUS:
       return {

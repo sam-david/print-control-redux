@@ -109,9 +109,8 @@ export const extrudeTool = (printer, amount) => dispatch => {
     .send(requestBody)
     .set('X-Api-Key', credentials.apiKey)
     .end((err, res) => {
-      if (err) { console.error(err); }
-      console.log("connection response:", res);
-      this.pingConnectionStatus();
+      if (err) { errorConsoleLog('extrudeTool', err); }
+      successConsoleLog('extrudeTool', res);
     });
 }
 
@@ -127,9 +126,12 @@ export const setBedTemp = (printer, temp) => dispatch => {
     .send(requestBody)
     .set('X-Api-Key', credentials.apiKey)
     .end((err, res) => {
-      if (err) { console.error(err); }
-      console.log("connection response:", res);
-      this.pingConnectionStatus();
+      if (err) { errorConsoleLog('setBedTemp', err); }
+      successConsoleLog('setBedTemp', res);
+      dispatch({
+        type: SET_BED_TEMP,
+        temp: temp
+      })
     });
 }
 
@@ -141,10 +143,10 @@ export const connectToPrinter = (printer) => dispatch => {
     .send({ command: 'connect'})
     .set('X-Api-Key', credentials.apiKey)
     .end((err, res) => {
-      console.log("CONNECT RESPONSE", res);
       if (err) {
-        console.error(err);
+        errorConsoleLog('connectToPrinter', err);
       } else {
+        successConsoleLog('connectToPrinter', res);
         dispatch({
           type: CONNECT_TO_PRINTER
         })
@@ -161,8 +163,8 @@ export const cancelPrintJob = (printer) => dispatch => {
     .send({ command: 'cancel'})
     .set('X-Api-Key', credentials.apiKey)
     .end((err, res) => {
-      if (err) { console.error(err); }
-
+      phatConsoleLog('PRINT JOB CANCELLED!')
+      if (err) { errorConsoleLog('cancelPrintJob', err); }
     });
 }
 
