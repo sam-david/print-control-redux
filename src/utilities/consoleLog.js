@@ -1,8 +1,13 @@
 const functionStyling = 'color: orange; font-weight: bold;';
 const eventStyling = 'color: purple; font-weight: bold;';
+const successStyling = 'color: white; background: green;';
 
 export const successConsoleLog = (functionName, message) => {
-  console.log('%c ' + functionName + ': %c' + message, functionStyling, 'color: white; background: green;');
+  if (typeof(message) == 'object') {
+    console.log('%c ' + functionName + ': %c' + JSON.stringify(message), functionStyling, successStyling);
+  } else {
+    console.log('%c ' + functionName + ': %c' + message, functionStyling, successStyling);
+  }
 }
 
 export const errorConsoleLog = (functionName, message) => {

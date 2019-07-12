@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 import { Row, Col} from 'react-materialize';
 import { connect } from 'react-redux';
 
-import Jog from './Jog';
-import Extrude from './Extrude';
-import Temp from './Temp/index.js';
+import Jog from './Jog/index';
+import Extrude from './Extrude/index';
+import Temp from './Temp/index';
 
 import './style.scss';
 
@@ -20,10 +20,12 @@ class PrinterControls extends Component {
           </Col>
         </Row>
         <Row>
-          <Col s={6} className="printer-control-column">
+          <Col s={12} className="printer-control-column">
             <Temp />
           </Col>
-          <Col s={6}>
+        </Row>
+        <Row>
+          <Col s={12}>
             <Jog />
           </Col>
         </Row>
