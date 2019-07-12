@@ -25,7 +25,6 @@ class Home extends Component {
             <h1>Detecting Baudrate...</h1>
           </Col>
         </Row>
-
       )
     } else if (this.props.connectionStatus == 'Operational') {
       return(

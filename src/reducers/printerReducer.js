@@ -36,7 +36,17 @@ export default function(state = initialState, action) {
         ...state,
         connectionStatus: action.payload
       };
+    case GET_FILES:
+      return {
+        ...state,
+        files: action.files
+      };
     case SET_BED_TEMP:
+      return {
+        ...state,
+        bedTemp: action.payload
+      };
+    case SET_TOOL_TEMP:
       return {
         ...state,
         bedTemp: action.payload
