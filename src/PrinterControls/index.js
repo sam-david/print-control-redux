@@ -13,9 +13,8 @@ class PrinterControls extends Component {
   render() {
     return(
       <div>
-        PrinterControls
-        <Row>
-          <Col s={12}>
+        <Row className="extrude-row">
+          <Col s={12} className="extrude-column">
             <Extrude />
           </Col>
         </Row>

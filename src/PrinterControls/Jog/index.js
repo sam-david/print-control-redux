@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Row, Col, Table, Button } from 'react-materialize';
 import { connect } from 'react-redux';
 
-import { jogPrinthead } from '../../actions/printerActions';
+import { jogPrinthead, homeAxes } from '../../actions/printerActions';
 
 import './style.scss';
 
@@ -179,6 +179,7 @@ class Jog extends Component {
                 className="red"
                 waves="light"
                 icon="gps_fixed"
+                onClick={() => this.props.homeAxes(this.props.selectedPrinter, ['x', 'y'])}
               />
            </td>
            <td>
@@ -216,6 +217,16 @@ class Jog extends Component {
               >
                100
               </Button>
+            </td>
+            <td>
+              <Button
+                floating
+                large
+                className="red"
+                waves="light"
+                icon="border_horizontal"
+                onClick={() => this.props.homeAxes(this.props.selectedPrinter, ['z'])}
+              />
             </td>
           </tr>
           <tr>
@@ -355,4 +366,4 @@ const mapStateToProps = state => ({
   selectedPrinter: state.printers.selectedPrinter
 })
 
-export default connect(mapStateToProps, { jogPrinthead })(Jog);
+export default connect(mapStateToProps, { jogPrinthead, homeAxes })(Jog);

@@ -1,5 +1,9 @@
 @import '../Components/colors';
 
+body {
+  background: #e8e8e8;
+}
+
 .print-control-container {
   &.makergear{
     border: solid $makergear-grey 10px;
