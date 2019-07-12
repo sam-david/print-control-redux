@@ -1,6 +1,6 @@
 import { SET_BED_TEMP, SET_TOOL_TEMP, PING_JOB_STATUS, PING_CONNECTION_STATUS, PING_PRINTER_STATUS,  SELECT_PRINTER, CONNECT_TO_PRINTER, GET_FILES } from './types';
 import superagent from 'superagent';
-import { successConsoleLog, errorConsoleLog, pingConsoleLog, phatConsoleLog } from '../utilities/consoleLog';
+import { successConsoleLog, errorConsoleLog, pingConsoleLog, phatConsoleLog, eventConsoleLog } from '../utilities/consoleLog';
 
 function printerCredentials(printer) {
   if (printer == 'makergear') {
@@ -20,7 +20,6 @@ function printerCredentials(printer) {
     }
   }
 }
-
 
 
 export const homeAxes = (printer, axes) => dispatch => {
@@ -136,7 +135,6 @@ export const setBedTemp = (printer, temp) => dispatch => {
 }
 
 export const connectToPrinter = (printer) => dispatch => {
-  console.log('connectToPrinter', printer)
   let credentials = printerCredentials(printer);
   superagent
     .post(credentials.url + '/api/connection')
@@ -155,7 +153,7 @@ export const connectToPrinter = (printer) => dispatch => {
 }
 
 export const cancelPrintJob = (printer) => dispatch => {
-  console.log('connectToPrinter', printer)
+  eventConsoleLog('cancel_job', printer)
   let credentials = printerCredentials(printer);
 
   superagent
@@ -168,8 +166,27 @@ export const cancelPrintJob = (printer) => dispatch => {
     });
 }
 
+export const selectAndPrintFile = (printer, file) => dispatch => {
+  let credentials = printerCredentials(printer);
+
+  superagent
+    .post(credentials.url + '/api/files/local/' + file.path)
+    .send({ command: 'select', print: true})
+    .set('X-Api-Key', credentials.apiKey)
+    .end((err, res) => {
+      if (err) { console.error(err); }
+      console.log("connection response:", res);
+      successConsoleLog('connectToPrinter', res);
+      // this.pingConnectionStatus();
+      // dispatch({
+      //   type: SELECT_PRINTER,
+      //   printer: printer
+      // })
+    });
+}
+
 export const selectPrinter = (printer) => dispatch => {
-  console.log('selectPrinter', printer)
+  eventConsoleLog('select_printer', printer)
   dispatch({
     type: SELECT_PRINTER,
     printer: printer
@@ -220,7 +237,7 @@ export const pingPrinterStatus = (printer) => dispatch => {
     .set('X-Api-Key', credentials.apiKey)
     .end((err, res) => {
       if (err) {
-        console.error(err);
+        errorConsoleLog('pingPrinterStatus', err);
       } else {
         let payload = {
           toolTemp: res.body.temperature.tool0.actual,

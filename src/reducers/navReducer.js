@@ -3,7 +3,7 @@ import {
 } from '../actions/types';
 
 const initialState = {
-  selectedPage: 'PrinterControls'
+  selectedPage: 'PrinterFiles'
 };
 
 export default function(state = initialState, action) {

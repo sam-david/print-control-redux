@@ -1,0 +1,75 @@
+ul.collapsible {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.collapsible-header {
+  background-color: tan;
+  font-size: 2em;
+  border-bottom: solid black 2px;
+  border-left: solid black 2px;
+  border-right: solid black 2px;
+}
+
+.collapsible-body {
+  border-bottom: solid black 2px;
+  border-left: solid black 2px;
+  border-right: solid black 2px;
+  padding: 2%;
+}
+
+.file-name-date-column {
+  text-align: left;
+  font-weight: bold;
+  font-size: 1em;
+}
+
+.file-name {
+  font-size: 1.2em;
+}
+
+.file-date {
+  font-size: .8em;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.file-content-row {
+  margin-bottom: 0;
+}
+
+
+.file-collapsible {
+  border-top: solid black 2px;
+}
+
+.fail-icon-row, .success-icon-row {
+  margin-bottom: 5px;
+}
+
+.success-date-text, .fail-date-text {
+  time {
+    margin-top: 2px;
+  }
+  font-weight: bold;
+}
+
+.success-date-text {
+  color: green;
+}
+
+.fail-date-text {
+  color: red;
+}
+
+.failed-jobs-button, .success-jobs-button {
+  height: 30px !important;
+  width: 30px !important;
+  line-height: 32px;
+  margin-left: 5px;
+}
+
+.success-jobs-button {
+  margin-left: 5px;
+}
+

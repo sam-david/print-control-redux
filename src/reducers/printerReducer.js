@@ -73,7 +73,8 @@ export default function(state = initialState, action) {
       return {
         ...state,
         selectedPrinter: action.printer,
-        printerStatus: null
+        printerStatus: null,
+        files: []
       };
     default:
       return state;
