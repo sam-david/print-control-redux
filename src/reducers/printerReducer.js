@@ -12,7 +12,7 @@ import {
 } from '../actions/types';
 
 const initialState = {
-  selectedPrinter: 'makergear',
+  selectedPrinter: 'lulzbot',
   localTargetToolTemp: 215,
   localTargetBedTemp: 45,
   localTargetExtrudeAmount: 10,

@@ -7,23 +7,30 @@ import { pingJobStatus, pingConnectionStatus, pingPrinterStatus } from '../actio
 
 import './style.css';
 
+const pingJobStatusTimeInterval = 3000;
+const pingConnectionStatusTimeInterval = 10000;
+const pingPrinterStatusTimeInterval = 2000;
+
 class StatsBar extends Component {
 
   componentWillMount() {
     let that = this;
+    that.props.pingJobStatus(that.props.selectedPrinter)
+    that.props.pingConnectionStatus(that.props.selectedPrinter)
+    that.props.pingPrinterStatus(that.props.selectedPrinter)
     setInterval(function() {
       that.props.pingJobStatus(that.props.selectedPrinter);
-    }, 1000);
+    }, pingJobStatusTimeInterval);
 
     setInterval(function() {
       that.props.pingConnectionStatus(that.props.selectedPrinter);
-    }, 1000);
+    }, pingConnectionStatusTimeInterval);
 
     setInterval(function() {
       if (that.props.connectionStatus != 'Closed') {
         that.props.pingPrinterStatus(that.props.selectedPrinter);
       }
-    }, 1000);
+    }, pingPrinterStatusTimeInterval);
   }
 
   render() {

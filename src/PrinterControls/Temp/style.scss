@@ -1,0 +1,35 @@
+.icon-column {
+  background: #d8d80f;
+  border-right: solid purple 8px;
+}
+
+.temp-label-column, .temp-input-column, .temp-button-off-column {
+  padding: 2% !important;
+}
+
+.temp-row {
+  margin-bottom: 0;
+  display: flex;
+}
+
+.temp-row.top {
+  border-top: solid purple 8px;
+  border-left: solid purple 8px;
+  border-right: solid purple 8px;
+}
+
+.temp-row.bottom {
+  border: solid purple 8px;
+}
+
+
+.temp-icon {
+  margin-top: 20px;
+  font-size: 3.5em;
+}
+
+.temp-label {
+  font-weight: bold;
+  font-size: 1.2em;
+  margin-top: 15px;
+}

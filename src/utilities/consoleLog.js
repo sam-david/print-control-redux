@@ -1,5 +1,5 @@
-
 const functionStyling = 'color: orange; font-weight: bold;';
+const eventStyling = 'color: purple; font-weight: bold;';
 
 export const successConsoleLog = (functionName, message) => {
   console.log('%c ' + functionName + ': %c' + message, functionStyling, 'color: white; background: green;');
@@ -7,6 +7,10 @@ export const successConsoleLog = (functionName, message) => {
 
 export const errorConsoleLog = (functionName, message) => {
   console.log('%c ' + functionName + ': %c' + message, functionStyling, 'color: white; font-weight: bold; background: red;');
+}
+
+export const eventConsoleLog = (eventName, message) => {
+  console.log('%c ' + eventName + ': %c' + message, eventStyling, 'font-weight: bold;');
 }
 
 export const pingConsoleLog = (functionName, message) => {

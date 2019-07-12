@@ -74,6 +74,23 @@ export const jogPrinthead = (printer, axes, distance) => dispatch => {
     });
 }
 
+export const extrudeTool = (printer, amount) => dispatch => {
+  let credentials = printerCredentials(printer);
+  let requestBody = {
+      command: 'extrude',
+      amount: parseInt(amount)
+    }
+
+  superagent
+    .post(credentials.url + '/api/printer/tool')
+    .send(requestBody)
+    .set('X-Api-Key', credentials.apiKey)
+    .end((err, res) => {
+      if (err) { errorConsoleLog('extrudeTool', err); }
+      successConsoleLog('extrudeTool', res);
+    });
+}
+
 export const setToolTemp = (printer, temp) => dispatch => {
   let credentials = printerCredentials(printer);
   let requestBody = {
@@ -94,23 +111,6 @@ export const setToolTemp = (printer, temp) => dispatch => {
         type: SET_TOOL_TEMP,
         temp: temp
       })
-    });
-}
-
-export const extrudeTool = (printer, amount) => dispatch => {
-  let credentials = printerCredentials(printer);
-  let requestBody = {
-      command: 'extrude',
-      amount: parseInt(amount)
-    }
-
-  superagent
-    .post(credentials.url + '/api/printer/tool')
-    .send(requestBody)
-    .set('X-Api-Key', credentials.apiKey)
-    .end((err, res) => {
-      if (err) { errorConsoleLog('extrudeTool', err); }
-      successConsoleLog('extrudeTool', res);
     });
 }
 
