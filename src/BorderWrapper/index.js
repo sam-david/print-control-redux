@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
+import {NotificationContainer, NotificationManager} from 'react-notifications';
+
 import './style.scss';
 
 class BorderWrapper extends Component {
@@ -9,6 +11,7 @@ class BorderWrapper extends Component {
     return (
       <div className={'print-control-container ' + this.props.selectedPrinter}>
         { this.props.children }
+        <NotificationContainer/>
       </div>
     );
   }

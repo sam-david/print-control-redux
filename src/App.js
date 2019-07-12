@@ -8,6 +8,7 @@ import StatsBar from './StatsBar';
 import NavBar from './NavBar';
 import PageView from './PageView';
 import BorderWrapper from './BorderWrapper';
+import 'react-notifications/lib/notifications.css'; // TODO: needed?
 
 class App extends Component {
   componentWillMount() {

@@ -4,6 +4,8 @@ import { Row, Col, Table, Button } from 'react-materialize';
 import { connect } from 'react-redux';
 
 import { jogPrinthead, homeAxes } from '../../actions/printerActions';
+import {NotificationContainer, NotificationManager} from 'react-notifications';
+
 
 import './style.scss';
 

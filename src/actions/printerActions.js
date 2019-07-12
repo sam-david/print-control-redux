@@ -1,5 +1,7 @@
 import { SET_BED_TEMP, SET_TOOL_TEMP, PING_JOB_STATUS, PING_CONNECTION_STATUS, PING_PRINTER_STATUS,  SELECT_PRINTER, CONNECT_TO_PRINTER, GET_FILES } from './types';
 import superagent from 'superagent';
+import { NotificationManager} from 'react-notifications';
+
 import { successConsoleLog, errorConsoleLog, pingConsoleLog, phatConsoleLog, eventConsoleLog } from '../utilities/consoleLog';
 
 function printerCredentials(printer) {
@@ -21,10 +23,15 @@ function printerCredentials(printer) {
   }
 }
 
+const capitalize = (s) => {
+  if (typeof s !== 'string') return ''
+  return s.charAt(0).toUpperCase() + s.slice(1)
+}
 
 export const homeAxes = (printer, axes) => dispatch => {
   // Input: axes = ['x', 'y', 'z']
   console.log('homeAxes', printer, 'axes:', axes)
+  // NotificationManager.info('Started Homing', axes.join(", "))
   let credentials = printerCredentials(printer);
   superagent
     .post(credentials.url + '/api/printer/printhead')
@@ -35,6 +42,7 @@ export const homeAxes = (printer, axes) => dispatch => {
     .set('X-Api-Key', credentials.apiKey)
     .end((err, res) => {
       if (err) { errorConsoleLog('homeAxes', err); }
+      NotificationManager.success('Homing Sent', axes.join(", "))
       successConsoleLog('homeAxes', res);
     });
 }
@@ -63,17 +71,21 @@ export const jogPrinthead = (printer, axes, distance) => dispatch => {
   let requestBody = { command: 'jog' }
   requestBody[axes] = distance
 
+  // NotificationManager.info('Jogging | ' + axes.toUpperCase() + ' | ' + distance + ' mm.')
+
   superagent
     .post(credentials.url + '/api/printer/printhead')
     .send(requestBody)
     .set('X-Api-Key', credentials.apiKey)
     .end((err, res) => {
       if (err) { errorConsoleLog('jogPrinthead', err); }
+      NotificationManager.success('Jogging | ' + axes.toUpperCase() + ' | ' + distance + ' mm.')
       successConsoleLog('jogPrinthead', res);
     });
 }
 
 export const extrudeTool = (printer, amount) => dispatch => {
+  // NotificationManager.info('Extruding | ' + amount + ' mm.')
   let credentials = printerCredentials(printer);
   let requestBody = {
       command: 'extrude',
@@ -86,11 +98,13 @@ export const extrudeTool = (printer, amount) => dispatch => {
     .set('X-Api-Key', credentials.apiKey)
     .end((err, res) => {
       if (err) { errorConsoleLog('extrudeTool', err); }
+      NotificationManager.success('Extruding | ' + amount + ' mm.')
       successConsoleLog('extrudeTool', res);
     });
 }
 
 export const setToolTemp = (printer, temp) => dispatch => {
+  // NotificationManager.info('Setting Tool Temp | ' + temp + "°C")
   let credentials = printerCredentials(printer);
   let requestBody = {
       command: 'target',
@@ -106,6 +120,7 @@ export const setToolTemp = (printer, temp) => dispatch => {
     .end((err, res) => {
       if (err) { errorConsoleLog('setToolTemp', err); }
       successConsoleLog('setToolTemp', res);
+      NotificationManager.success('Setting Tool Temp | ' + temp + "°C")
       dispatch({
         type: SET_TOOL_TEMP,
         temp: temp
@@ -127,6 +142,7 @@ export const setBedTemp = (printer, temp) => dispatch => {
     .end((err, res) => {
       if (err) { errorConsoleLog('setBedTemp', err); }
       successConsoleLog('setBedTemp', res);
+      NotificationManager.success('Setting Bed Temp | ' + temp + "°C")
       dispatch({
         type: SET_BED_TEMP,
         temp: temp
@@ -145,6 +161,7 @@ export const connectToPrinter = (printer) => dispatch => {
         errorConsoleLog('connectToPrinter', err);
       } else {
         successConsoleLog('connectToPrinter', res);
+        NotificationManager.success('Connected To ' + printer.toUpperCase())
         dispatch({
           type: CONNECT_TO_PRINTER
         })
@@ -162,6 +179,7 @@ export const cancelPrintJob = (printer) => dispatch => {
     .set('X-Api-Key', credentials.apiKey)
     .end((err, res) => {
       phatConsoleLog('PRINT JOB CANCELLED!')
+      NotificationManager.error("PRINT JOB CANCELLING");
       if (err) { errorConsoleLog('cancelPrintJob', err); }
     });
 }
@@ -174,19 +192,15 @@ export const selectAndPrintFile = (printer, file) => dispatch => {
     .send({ command: 'select', print: true})
     .set('X-Api-Key', credentials.apiKey)
     .end((err, res) => {
-      if (err) { console.error(err); }
-      console.log("connection response:", res);
-      successConsoleLog('connectToPrinter', res);
-      // this.pingConnectionStatus();
-      // dispatch({
-      //   type: SELECT_PRINTER,
-      //   printer: printer
-      // })
+      if (err) { errorConsoleLog('selectAndPrintFile', err); }
+      successConsoleLog('selectAndPrintFile', res);
+      NotificationManager.success('Selected -' + file.name.substring(0,20))
     });
 }
 
 export const selectPrinter = (printer) => dispatch => {
   eventConsoleLog('select_printer', printer)
+  NotificationManager.info('Selected Printer - ' + capitalize(printer));
   dispatch({
     type: SELECT_PRINTER,
     printer: printer
