@@ -8,6 +8,7 @@ import './style.scss';
 import mosaicLogo from '../images/Mosaic.png';
 
 import { getFiles, selectAndPrintFile } from '../actions/printerActions';
+import { filamentToGrams } from '../utilities/filament';
 
 class Files extends Component {
   constructor(props) {
@@ -60,27 +61,24 @@ class Files extends Component {
 
   renderFileGrams(file) {
     if (file.hasOwnProperty('gcodeAnalysis') && file.gcodeAnalysis.hasOwnProperty('filament') && file.gcodeAnalysis.filament.hasOwnProperty('tool0')) {
-      let volumeConversionsByType = {
-        "PLA": 1.24,
-        "ABS": 1.04,
-        "ASA": 1.07,
-        "PETG": 1.27,
-        "Nylon": 1.08,
-        "Polycarbonate": 1.20,
-        "HIPS": 1.07,
-        "PVA": 1.19,
-        "TPU/TPE": 1.20,
-        "PMMA": 1.18,
-        "CopperFill": 3.90
-      }
-
       let filamentLength = file.gcodeAnalysis.filament.tool0.length;
-      let diameter = 1.75;
-      let radius = diameter / 2;
-      let volume = (Math.PI * radius ** 2 * filamentLength) / 1000.0;
-      let finalVolume = volume * volumeConversionsByType['PLA'];
+      let grams = filamentToGrams(filamentLength);
       return (
-        finalVolume.toFixed(2) + " g."
+        grams.toFixed(2) + " g."
+      )
+    }
+  }
+
+  renderFileCost(file) {
+    if (file.hasOwnProperty('gcodeAnalysis') && file.gcodeAnalysis.hasOwnProperty('filament') && file.gcodeAnalysis.filament.hasOwnProperty('tool0')) {
+      let filamentLength = file.gcodeAnalysis.filament.tool0.length;
+      let grams = filamentToGrams(filamentLength);
+      let pricePerKilo = 30.00;
+      let pricePerGram = pricePerKilo / 1000;
+      let finalPrice = pricePerGram * grams;
+
+      return (
+        "$ " + finalPrice.toFixed(2)
       )
     }
   }
@@ -193,7 +191,8 @@ class Files extends Component {
                 </Col>
                 <Col s={2} className="file-date">
                   {this.renderPrintDimensions(file)} <br />
-                  {this.renderFileGrams(file)}
+
+                  {this.renderFileCost(file)} | {this.renderFileGrams(file)}
                 </Col>
                 <Col s={2}>
                   { this.renderFileButton(file) }
