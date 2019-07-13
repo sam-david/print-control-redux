@@ -14,32 +14,32 @@ class NavBar extends Component {
   render() {
     return (
       <Row className="nav-bar-row">
-        <Col s={2} onClick={() => this.props.selectPage('PrinterSelect')} className="nav-button">
+        <Col s={2} onClick={() => this.props.selectPage('PrinterSelect')} className={this.props.selectedPage === 'PrinterSelect' ? 'nav-button active-nav' : 'nav-button'}>
           <Icon className="nav-icon">
             view_module
           </Icon>
         </Col>
-        <Col s={2} onClick={() => this.props.selectPage('Home')} className="nav-button">
+        <Col s={2} onClick={() => this.props.selectPage('Home')} className={this.props.selectedPage === 'Home' ? 'nav-button active-nav' : 'nav-button'}>
           <Icon className="nav-icon">
             home
           </Icon>
         </Col>
-        <Col s={2} onClick={() => this.props.selectPage('PrinterControls')} className="nav-button">
+        <Col s={2} onClick={() => this.props.selectPage('PrinterControls')} className={this.props.selectedPage === 'PrinterControls' ? 'nav-button active-nav' : 'nav-button'}>
           <Icon className="nav-icon">
             gamepad
           </Icon>
         </Col>
-        <Col s={2} onClick={() => this.props.selectPage('PrinterFiles')} className="nav-button">
+        <Col s={2} onClick={() => this.props.selectPage('PrinterFiles')} className={this.props.selectedPage === 'PrinterFiles' ? 'nav-button active-nav' : 'nav-button'}>
           <Icon className="nav-icon">
             folder
           </Icon>
         </Col>
-        <Col s={2} onClick={() => this.props.selectPage('PrinterTerminal')} className="nav-button">
+        <Col s={2} onClick={() => this.props.selectPage('PrinterTerminal')} className={this.props.selectedPage === 'PrinterTerminal' ? 'nav-button active-nav' : 'nav-button'}>
           <Icon className="nav-icon">
             call_to_action
           </Icon>
         </Col>
-        <Col s={2} onClick={() => this.props.selectPage('Nanoleaf')} className="nav-button">
+        <Col s={2} onClick={() => this.props.selectPage('Nanoleaf')} className={this.props.selectedPage === 'Nanoleaf' ? 'nav-button active-nav' : 'nav-button'}>
           <Icon className="nav-icon">
             change_history
           </Icon>
@@ -55,7 +55,8 @@ NavBar.propTypes = {
 }
 
 const mapStateToProps = state => ({
-  selectedPrinter: state.printers.selectedPrinter
+  selectedPrinter: state.printers.selectedPrinter,
+  selectedPage: state.nav.selectedPage
 })
 
 export default connect(mapStateToProps, { selectPage })(NavBar);
