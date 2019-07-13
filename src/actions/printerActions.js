@@ -28,6 +28,10 @@ const capitalize = (s) => {
   return s.charAt(0).toUpperCase() + s.slice(1)
 }
 
+export const streamUrl = (printer) => {
+  return printerCredentials(printer).url + "/webcam/?action=stream"
+}
+
 export const homeAxes = (printer, axes) => dispatch => {
   // Input: axes = ['x', 'y', 'z']
   console.log('homeAxes', printer, 'axes:', axes)
