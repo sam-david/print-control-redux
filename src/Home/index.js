@@ -28,7 +28,7 @@ class Home extends Component {
   }
 
   render() {
-    if (this.props.connectionStatus == 'Closed' || this.props.connectionStatus === 'Offline') {
+    if (this.props.connectionStatus == 'Closed' || this.props.connectionStatus === 'Offline' || this.props.connectionStatus === null) {
       return(
         <Row className="home-screen-container">
           <Col s={12}>
@@ -41,6 +41,7 @@ class Home extends Component {
               icon="grade"
               onClick={() => this.props.connectToPrinter(this.props.selectedPrinter)}
             />
+            <Stream />
           </Col>
         </Row>
 
@@ -139,6 +140,7 @@ class Home extends Component {
             </Col>
           </Row>
           <Row>
+            <Stream />
           </Row>
           <Row>
             <Col s={12}>
@@ -153,7 +155,18 @@ class Home extends Component {
         </div>
       )
     }else {
-      return(<div />)
+      return(
+        <div className="cancel-container">
+          <Row>
+            <Col s={12}>
+              <h1>Connecting...</h1>
+            </Col>
+          </Row>
+          <Row>
+            <Stream />
+          </Row>
+        </div>
+      )
     }
   }
 }

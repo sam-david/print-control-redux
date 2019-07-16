@@ -3,15 +3,26 @@ import PropTypes from 'prop-types';
 import { Row, Col, Button} from 'react-materialize';
 import { connect } from 'react-redux';
 
-import { connectToPrinter, streamUrl } from '../actions/printerActions';
+import { connectToPrinter } from '../actions/printerActions';
+import { printerCredentials } from '../utilities/printer-credentials';
 
 import './style.scss';
 
 class Stream extends Component {
+  streamUrl(printer) {
+    return printerCredentials(printer).url + "/webcam/?action=stream"
+  }
+
   render() {
-    return(
-      <img src={this.props.streamUrl(this.props.selectedPrinter)} />
-    )
+    if (this.props.selectedPrinter != 'ender') {
+      return(
+        <img className="stream-image" src={this.streamUrl(this.props.selectedPrinter)} />
+      )
+    } else {
+      return(
+        <div />
+      )
+    }
   }
 }
 
@@ -25,4 +36,4 @@ const mapStateToProps = state => ({
   selectedPrinter: state.printers.selectedPrinter
 })
 
-export default connect(mapStateToProps, {connectToPrinter, streamUrl})(Stream);
+export default connect(mapStateToProps, {connectToPrinter})(Stream);

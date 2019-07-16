@@ -3,33 +3,11 @@ import superagent from 'superagent';
 import { NotificationManager} from 'react-notifications';
 
 import { successConsoleLog, errorConsoleLog, pingConsoleLog, phatConsoleLog, eventConsoleLog } from '../utilities/consoleLog';
-
-function printerCredentials(printer) {
-  if (printer == 'makergear') {
-    return {
-      url: 'http://10.0.1.12',
-      apiKey: '25C8431CFE07466D81CF9FA8831D0D40'
-    }
-  } else if (printer == 'lulzbot') {
-    return {
-      url: 'http://10.0.1.4',
-      apiKey: '25BF160035354521978E60B57E7F18C6'
-    }
-  } else if (printer == 'ender') {
-    return {
-      url: 'http://10.0.1.36',
-      apiKey: 'BE943CE2F30D43F6A87C16EFE3340A7C'
-    }
-  }
-}
+import { printerCredentials } from '../utilities/printer-credentials';
 
 const capitalize = (s) => {
   if (typeof s !== 'string') return ''
   return s.charAt(0).toUpperCase() + s.slice(1)
-}
-
-export const streamUrl = (printer) => {
-  return printerCredentials(printer).url + "/webcam/?action=stream"
 }
 
 export const homeAxes = (printer, axes) => dispatch => {

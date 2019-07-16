@@ -12,8 +12,8 @@ import {
 } from '../actions/types';
 
 const initialState = {
-  selectedPrinter: 'lulzbot',
-  localTargetToolTemp: 215,
+  selectedPrinter: 'makergear',
+  localTargetToolTemp: 210,
   localTargetBedTemp: 45,
   localTargetExtrudeAmount: 10,
   toolTemp: null,
@@ -70,12 +70,29 @@ export default function(state = initialState, action) {
         printerStatus: action.payload.printerStatus
       };
     case SELECT_PRINTER:
-      return {
-        ...state,
-        selectedPrinter: action.printer,
-        printerStatus: null,
-        files: []
-      };
+      if (state.selectedPrinter != action.printer) {
+        return {
+          ...state,
+          selectedPrinter: action.printer,
+          localTargetToolTemp: 215,
+          localTargetBedTemp: 45,
+          localTargetExtrudeAmount: 10,
+          toolTemp: null,
+          toolTempTarget: null,
+          bedTemp: null,
+          bedTempTarget: null,
+          connectionStatus: null,
+          printerStatus: null,
+          printProgress: null,
+          printTimeLeft: null,
+          files: []
+        };
+      } else {
+        return {
+          ...state,
+          selectedPrinter: action.printer
+        }
+      }
     default:
       return state;
   }
