@@ -177,7 +177,7 @@ class Files extends Component {
     return(
       <Collapsible className="file-collapsible">
         {this.sortedFiles().slice(0,10).map((file, index) => (
-            <CollapsibleItem key={index} header={file.name.replace('.gcode','').replace('.maf', '')}>
+            <CollapsibleItem key={index} header={file.name.replace('.gcode','').replace('.maf', '').replace(/_/g,' ')}>
               <Row className="file-content-row">
                 <Col s={4} className="file-name-date-column">
                   <span className="file-name">{file.name.substring(0, 35)} {file.name.includes('.maf') ? <img className='mosaic-logo' src={mosaicLogo} /> : '' }</span> <br />

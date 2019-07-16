@@ -166,6 +166,28 @@ export const connectToPrinter = (printer) => dispatch => {
       } else {
         successConsoleLog('connectToPrinter', res);
         NotificationManager.success('Connected To ' + printer.toUpperCase())
+        // TODO: Call ping Printer and Con status after connect
+        // exports.pingPrinterStatus(printer);
+        // exports.pingConnectionStatus(printer);
+        dispatch({
+          type: CONNECT_TO_PRINTER
+        })
+      }
+    });
+}
+
+export const disconnectFromPrinter = (printer) => dispatch => {
+  let credentials = printerCredentials(printer);
+  superagent
+    .post(credentials.url + '/api/connection')
+    .send({ command: 'disconnect'})
+    .set('X-Api-Key', credentials.apiKey)
+    .end((err, res) => {
+      if (err) {
+        errorConsoleLog('disconnectToPrinter', err);
+      } else {
+        successConsoleLog('disconnectToPrinter', res);
+        NotificationManager.success('Disconnected From ' + printer.toUpperCase())
         dispatch({
           type: CONNECT_TO_PRINTER
         })
@@ -257,19 +279,21 @@ export const pingPrinterStatus = (printer) => dispatch => {
       if (err) {
         errorConsoleLog('pingPrinterStatus', err);
       } else {
-        let payload = {
-          toolTemp: res.body.temperature.tool0.actual,
-          toolTempTarget: res.body.temperature.tool0.target,
-          bedTemp: res.body.temperature.bed.actual,
-          bedTempTarget: res.body.temperature.bed.target,
-          printerStatus: res.body.state.text
-        }
+        if (res.body.hasOwnProperty('temperature') && res.body.temperature.hasOwnProperty('tool0')) {
+          let payload = {
+            toolTemp: res.body.temperature.tool0.actual,
+            toolTempTarget: res.body.temperature.tool0.target,
+            bedTemp: res.body.temperature.bed.actual,
+            bedTempTarget: res.body.temperature.bed.target,
+            printerStatus: res.body.state.text
+          }
 
-        pingConsoleLog('pingPrinterStatus', payload)
-        dispatch({
-          type: PING_PRINTER_STATUS,
-          payload: payload
-        })
+          pingConsoleLog('pingPrinterStatus', payload)
+          dispatch({
+            type: PING_PRINTER_STATUS,
+            payload: payload
+          })
+        }
       }
     });
 }
