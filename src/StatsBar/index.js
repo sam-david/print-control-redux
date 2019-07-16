@@ -16,8 +16,8 @@ class StatsBar extends Component {
   componentWillMount() {
     let that = this;
     that.props.pingConnectionStatus(that.props.selectedPrinter)
-    // that.props.pingJobStatus(that.props.selectedPrinter)
-    // that.props.pingPrinterStatus(that.props.selectedPrinter)
+    that.props.pingJobStatus(that.props.selectedPrinter)
+    that.props.pingPrinterStatus(that.props.selectedPrinter)
     setInterval(function() {
       if (that.props.connectionStatus === 'Printing') {
         that.props.pingJobStatus(that.props.selectedPrinter);
