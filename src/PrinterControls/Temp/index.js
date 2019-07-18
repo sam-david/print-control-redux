@@ -91,6 +91,8 @@ class Temp extends Component {
       bedTemps = this.props.bedTemp + "°C | " + this.props.bedTempTarget + "°C"
     } else if (this.props.bedTemp != null) {
       bedTemps = this.props.bedTemp + "°C"
+    } else {
+      bedTemps = "Printer Disconnected"
     }
 
     return(

@@ -30,21 +30,26 @@ class Home extends Component {
   render() {
     if (this.props.connectionStatus == 'Closed' || this.props.connectionStatus === 'Offline' || this.props.connectionStatus === null) {
       return(
-        <Row className="home-screen-container">
-          <Col s={12}>
-            <h2>Connect To Printer</h2>
-            <Button
-              floating
-              large
-              className="red connect-button"
-              waves="light"
-              icon="grade"
-              onClick={() => this.props.connectToPrinter(this.props.selectedPrinter)}
-            />
-            <Stream />
-          </Col>
-        </Row>
-
+        <div className="home-screen-container">
+          <Row>
+            <Col s={12}>
+              <h2>Connect To Printer</h2>
+              <Button
+                floating
+                large
+                className="red connect-button"
+                waves="light"
+                icon="grade"
+                onClick={() => this.props.connectToPrinter(this.props.selectedPrinter)}
+              />
+            </Col>
+          </Row>
+          <Row>
+            <Col s={12}>
+              <Stream />
+            </Col>
+          </Row>
+        </div>
       )
     } else if (this.props.connectionStatus == 'Detecting baudrate') {
       // Detecting baudrate

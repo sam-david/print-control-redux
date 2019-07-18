@@ -80,7 +80,11 @@ export const extrudeTool = (printer, amount) => dispatch => {
     .set('X-Api-Key', credentials.apiKey)
     .end((err, res) => {
       if (err) { errorConsoleLog('extrudeTool', err); }
-      NotificationManager.success('Extruding | ' + amount + ' mm.')
+      if (amount < 0) {
+        NotificationManager.error('Retracting | ' + amount + ' mm.')
+      } else {
+        NotificationManager.success('Extruding | ' + amount + ' mm.')
+      }
       successConsoleLog('extrudeTool', res);
     });
 }

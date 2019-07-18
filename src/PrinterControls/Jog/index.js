@@ -10,7 +10,26 @@ import {NotificationContainer, NotificationManager} from 'react-notifications';
 import './style.scss';
 
 class Jog extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      safeToJog: true
+    };
+  }
+
+
   // button icons: add_circle_outline, add_circle, add_box, add, arrow_upward, arrow_drop_down_circle, arrow_drop_up, keyboard_arrow_down, keyboard_arrow_left, keyboard_arrow_right, keyboard_arrow_up
+  jogWithTimeout(axis, amount) {
+    let jogTimeout = 750;
+    if (this.state.safeToJog) {
+      this.setState({safeToJog: false});
+      this.props.jogPrinthead(this.props.selectedPrinter, axis, amount);
+      setTimeout(() => {
+        this.setState({safeToJog: true});
+      }, jogTimeout);
+    }
+  }
 
   // center button icons: crop_3_2, gps_fixed, gps_not_fixed, gamepad, fullscreen_exit, border_inner
   render() {
@@ -26,7 +45,7 @@ class Jog extends Component {
               <Button
                 className="blue jog-button"
                 waves="light"
-                onClick={() => this.props.jogPrinthead(this.props.selectedPrinter, 'y', 100)}
+                onClick={() => this.jogWithTimeout('y', 100)}
               >
                100
               </Button>
@@ -41,7 +60,7 @@ class Jog extends Component {
                 waves="light"
                 large
                 icon="arrow_upward"
-                onClick={() => this.props.jogPrinthead(this.props.selectedPrinter, 'z', 100)}
+                onClick={() => this.jogWithTimeout('z', 100)}
               >
                 100
               </Button>
@@ -56,7 +75,7 @@ class Jog extends Component {
               <Button
                 className="blue jog-button"
                 waves="light"
-                onClick={() => this.props.jogPrinthead(this.props.selectedPrinter, 'y', 50)}
+                onClick={() => this.jogWithTimeout('y', 50)}
               >
                50
               </Button>
@@ -71,7 +90,7 @@ class Jog extends Component {
                 waves="light"
                 large
                 icon="arrow_upward"
-                onClick={() => this.props.jogPrinthead(this.props.selectedPrinter, 'z', 50)}
+                onClick={() => this.jogWithTimeout('z', 50)}
               >
                 50
               </Button>
@@ -86,7 +105,7 @@ class Jog extends Component {
               <Button
                 className="blue jog-button"
                 waves="light"
-                onClick={() => this.props.jogPrinthead(this.props.selectedPrinter, 'y', 10)}
+                onClick={() => this.jogWithTimeout('y', 10)}
               >
                10
               </Button>
@@ -101,7 +120,7 @@ class Jog extends Component {
                 waves="light"
                 large
                 icon="arrow_upward"
-                onClick={() => this.props.jogPrinthead(this.props.selectedPrinter, 'z', 10)}
+                onClick={() => this.jogWithTimeout('z', 10)}
               >
                 10
               </Button>
@@ -116,7 +135,7 @@ class Jog extends Component {
               <Button
                 className="blue jog-button"
                 waves="light"
-                onClick={() => this.props.jogPrinthead(this.props.selectedPrinter, 'y', 5)}
+                onClick={() => this.jogWithTimeout('y', 5)}
               >
                5
               </Button>
@@ -131,7 +150,7 @@ class Jog extends Component {
                 waves="light"
                 large
                 icon="arrow_upward"
-                onClick={() => this.props.jogPrinthead(this.props.selectedPrinter, 'z', 5)}
+                onClick={() => this.jogWithTimeout('z', 5)}
               >
                 5
               </Button>
@@ -142,7 +161,7 @@ class Jog extends Component {
               <Button
                 className="blue jog-button"
                 waves="light"
-                onClick={() => this.props.jogPrinthead(this.props.selectedPrinter, 'x', -100)}
+                onClick={() => this.jogWithTimeout('x', -100)}
               >
                -100
               </Button>
@@ -151,7 +170,7 @@ class Jog extends Component {
               <Button
                 className="blue jog-button"
                 waves="light"
-                onClick={() => this.props.jogPrinthead(this.props.selectedPrinter, 'x', -50)}
+                onClick={() => this.jogWithTimeout('x', -50)}
               >
                -50
               </Button>
@@ -160,7 +179,7 @@ class Jog extends Component {
               <Button
                 className="blue jog-button"
                 waves="light"
-                onClick={() => this.props.jogPrinthead(this.props.selectedPrinter, 'x', -10)}
+                onClick={() => this.jogWithTimeout('x', -10)}
               >
                -10
               </Button>
@@ -169,7 +188,7 @@ class Jog extends Component {
               <Button
                 className="blue jog-button"
                 waves="light"
-                onClick={() => this.props.jogPrinthead(this.props.selectedPrinter, 'x', -5)}
+                onClick={() => this.jogWithTimeout('x', -5)}
               >
                -5
               </Button>
@@ -188,7 +207,7 @@ class Jog extends Component {
               <Button
                 className="blue jog-button"
                 waves="light"
-                onClick={() => this.props.jogPrinthead(this.props.selectedPrinter, 'x', 5)}
+                onClick={() => this.jogWithTimeout('x', 5)}
               >
                5
               </Button>
@@ -197,7 +216,7 @@ class Jog extends Component {
               <Button
                 className="blue jog-button"
                 waves="light"
-                onClick={() => this.props.jogPrinthead(this.props.selectedPrinter, 'x', 10)}
+                onClick={() => this.jogWithTimeout('x', 10)}
               >
                10
               </Button>
@@ -206,7 +225,7 @@ class Jog extends Component {
               <Button
                 className="blue jog-button"
                 waves="light"
-                onClick={() => this.props.jogPrinthead(this.props.selectedPrinter, 'x', 50)}
+                onClick={() => this.jogWithTimeout('x', 50)}
               >
                50
               </Button>
@@ -215,7 +234,7 @@ class Jog extends Component {
               <Button
                 className="blue jog-button"
                 waves="light"
-                onClick={() => this.props.jogPrinthead(this.props.selectedPrinter, 'x', 100)}
+                onClick={() => this.jogWithTimeout('x', 100)}
               >
                100
               </Button>
@@ -240,7 +259,7 @@ class Jog extends Component {
               <Button
                 className="blue jog-button"
                 waves="light"
-                onClick={() => this.props.jogPrinthead(this.props.selectedPrinter, 'y', -5)}
+                onClick={() => this.jogWithTimeout('y', -5)}
               >
                -5
               </Button>
@@ -256,7 +275,7 @@ class Jog extends Component {
                 large
 
                 icon="arrow_downward"
-                onClick={() => this.props.jogPrinthead(this.props.selectedPrinter, 'z', -5)}
+                onClick={() => this.jogWithTimeout('z', -5)}
               >
                 -5
               </Button>
@@ -271,7 +290,7 @@ class Jog extends Component {
               <Button
                 className="blue jog-button"
                 waves="light"
-                onClick={() => this.props.jogPrinthead(this.props.selectedPrinter, 'y', -10)}
+                onClick={() => this.jogWithTimeout('y', -10)}
               >
                -10
               </Button>
@@ -286,7 +305,7 @@ class Jog extends Component {
                 waves="light"
                 large
                 icon="arrow_downward"
-                onClick={() => this.props.jogPrinthead(this.props.selectedPrinter, 'z', -10)}
+                onClick={() => this.jogWithTimeout('z', -10)}
               >
                 -10
               </Button>
@@ -301,7 +320,7 @@ class Jog extends Component {
               <Button
                 className="blue jog-button"
                 waves="light"
-                onClick={() => this.props.jogPrinthead(this.props.selectedPrinter, 'y', -50)}
+                onClick={() => this.jogWithTimeout('y', -50)}
               >
                -50
               </Button>
@@ -316,7 +335,7 @@ class Jog extends Component {
                 waves="light"
                 large
                 icon="arrow_downward"
-                onClick={() => this.props.jogPrinthead(this.props.selectedPrinter, 'z', -50)}
+                onClick={() => this.jogWithTimeout('z', -50)}
               >
                 -50
               </Button>
@@ -331,7 +350,7 @@ class Jog extends Component {
               <Button
                 className="blue jog-button"
                 waves="light"
-                onClick={() => this.props.jogPrinthead(this.props.selectedPrinter, 'y', -100)}
+                onClick={() => this.jogWithTimeout('y', -100)}
               >
                -100
               </Button>
@@ -346,7 +365,7 @@ class Jog extends Component {
                 waves="light"
                 large
                 icon="arrow_downward"
-                onClick={() => this.props.jogPrinthead(this.props.selectedPrinter, 'z', -100)}
+                onClick={() => this.jogWithTimeout('z', -100)}
               >
                 -100
               </Button>

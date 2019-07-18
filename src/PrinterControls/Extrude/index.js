@@ -7,6 +7,25 @@ import { extrudeTool } from '../../actions/printerActions';
 import './style.scss';
 
 class Extrude extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      safeToExtrude: true
+    };
+  }
+
+  extrudeWithTimeout(amount) {
+    let extrudeTimeout = 800;
+    if (this.state.safeToExtrude) {
+      this.setState({safeToExtrude: false});
+      this.props.extrudeTool(this.props.selectedPrinter, amount);
+      setTimeout(() => {
+        this.setState({safeToExtrude: true});
+      }, extrudeTimeout);
+    }
+  }
+
   render() {
     if (this.props.toolTemp > 180) {
       return(
@@ -16,7 +35,7 @@ class Extrude extends Component {
               <Button
                   className="green extrude-button"
                   waves="light"
-                  onClick={() => this.props.extrudeTool(this.props.selectedPrinter, 1)}
+                  onClick={() => this.extrudeWithTimeout(1)}
                 >
                  1 +
               </Button>
@@ -25,7 +44,7 @@ class Extrude extends Component {
               <Button
                   className="green extrude-button"
                   waves="light"
-                  onClick={() => this.props.extrudeTool(this.props.selectedPrinter, 5)}
+                  onClick={() => this.extrudeWithTimeout(5)}
                 >
                  5 +
               </Button>
@@ -34,7 +53,7 @@ class Extrude extends Component {
               <Button
                   className="green extrude-button"
                   waves="light"
-                  onClick={() => this.props.extrudeTool(this.props.selectedPrinter, 10)}
+                  onClick={() => this.extrudeWithTimeout(10)}
                 >
                  10 +
               </Button>
@@ -43,7 +62,7 @@ class Extrude extends Component {
               <Button
                   className="green extrude-button"
                   waves="light"
-                  onClick={() => this.props.extrudeTool(this.props.selectedPrinter, 50)}
+                  onClick={() => this.extrudeWithTimeout(50)}
                 >
                  50 +
               </Button>
@@ -52,7 +71,7 @@ class Extrude extends Component {
               <Button
                   className="green extrude-button"
                   waves="light"
-                  onClick={() => this.props.extrudeTool(this.props.selectedPrinter, 100)}
+                  onClick={() => this.extrudeWithTimeout(100)}
                 >
                  100 +
               </Button>
@@ -61,7 +80,7 @@ class Extrude extends Component {
               <Button
                   className="green extrude-button"
                   waves="light"
-                  onClick={() => this.props.extrudeTool(this.props.selectedPrinter, 150)}
+                  onClick={() => this.extrudeWithTimeout(150)}
                 >
                  150 +
               </Button>
@@ -72,7 +91,7 @@ class Extrude extends Component {
               <Button
                   className="red extrude-button"
                   waves="light"
-                  onClick={() => this.props.extrudeTool(this.props.selectedPrinter, -1)}
+                  onClick={() => this.extrudeWithTimeout(-1)}
                 >
                  1 -
               </Button>
@@ -81,7 +100,7 @@ class Extrude extends Component {
               <Button
                   className="red extrude-button"
                   waves="light"
-                  onClick={() => this.props.extrudeTool(this.props.selectedPrinter, -5)}
+                  onClick={() => this.extrudeWithTimeout(-5)}
                 >
                  5 -
               </Button>
@@ -90,7 +109,7 @@ class Extrude extends Component {
               <Button
                   className="red extrude-button"
                   waves="light"
-                  onClick={() => this.props.extrudeTool(this.props.selectedPrinter, -10)}
+                  onClick={() => this.extrudeWithTimeout(-10)}
                 >
                  10 -
               </Button>
@@ -99,7 +118,7 @@ class Extrude extends Component {
               <Button
                   className="red extrude-button"
                   waves="light"
-                  onClick={() => this.props.extrudeTool(this.props.selectedPrinter, -50)}
+                  onClick={() => this.extrudeWithTimeout(-50)}
                 >
                  50 -
               </Button>
@@ -108,7 +127,7 @@ class Extrude extends Component {
               <Button
                   className="red extrude-button"
                   waves="light"
-                  onClick={() => this.props.extrudeTool(this.props.selectedPrinter, -100)}
+                  onClick={() => this.extrudeWithTimeout(-100)}
                 >
                  100 -
               </Button>
@@ -117,7 +136,7 @@ class Extrude extends Component {
               <Button
                   className="red extrude-button"
                   waves="light"
-                  onClick={() => this.props.extrudeTool(this.props.selectedPrinter, -150)}
+                  onClick={() => this.extrudeWithTimeout(-150)}
                 >
                  150 -
               </Button>
