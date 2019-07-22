@@ -1,0 +1,50 @@
+@import '../Components/colors';
+
+.progress {
+  height: 70px;
+  &.makergear{
+    .determinate {
+      background-color: $makergear-grey;
+    }
+  }
+  &.lulzbot{
+    .determinate {
+      background-color: $lulzbot-green;
+    }
+  }
+  &.ender{
+    .determinate {
+      background-color: $ender-blue;
+    }
+  }
+  &.prusa{
+    .determinate {
+      background-color: $prusa-orange;
+    }
+  }
+  margin: 0;
+}
+
+.progress-bar-column {
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
+
+
+.progress-bar-row {
+  margin-bottom: 0;
+}
+
+.progress-precent {
+  font-family: 'Fredoka One';
+  font-size: 20em;
+  color: black;
+  font-weight:bold;
+  margin-top: 20px;
+  margin-bottom: 0;
+  line-height: .9;
+}
+
+.progress-percent-column {
+  margin-bottom: 0;
+}
