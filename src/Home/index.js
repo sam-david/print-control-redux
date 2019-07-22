@@ -14,6 +14,14 @@ class Home extends Component {
 
   }
 
+  confirmAndCancelJob() {
+    let confirmCancel = window.confirm("Are you sure you want to cancel job?");
+
+    if (confirmCancel) {
+      this.props.cancelPrintJob(this.props.selectedPrinter);
+    }
+  }
+
   moveToLoad(printer) {
     if (printer === 'makergear') {
       this.props.homeAxes(this.props.selectedPrinter, ['x','y','z'])
@@ -151,7 +159,7 @@ class Home extends Component {
             <Col s={12}>
               <Button
                 className="red darken-1 cancel-button"
-                onClick={() => this.props.cancelPrintJob(this.props.selectedPrinter)}
+                onClick={() => this.confirmAndCancelJob()}
               >
                 Cancel Print
               </Button>

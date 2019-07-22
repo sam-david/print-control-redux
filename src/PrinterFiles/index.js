@@ -5,7 +5,7 @@ import Moment from 'react-moment';
 import { connect } from 'react-redux';
 import './style.scss';
 
-import mosaicLogo from '../images/Mosaic.png';
+import mosaicLogo from '../images/Mosaic 2.svg';
 
 import { getFiles, selectAndPrintFile } from '../actions/printerActions';
 import { filamentToGrams } from '../utilities/filament';

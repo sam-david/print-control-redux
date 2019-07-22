@@ -5,6 +5,7 @@ body {
 }
 
 .print-control-container {
+  min-height: 768px;
   &.makergear{
     border: solid $makergear-grey 10px;
   }
