@@ -6,166 +6,33 @@ import { connect } from 'react-redux';
 import { connectToPrinter, homeAxes, setToolTemp, setBedTemp, disconnectFromPrinter, jogPrinthead, cancelPrintJob } from '../actions/printerActions';
 
 import Stream from '../Stream';
+import Offline from './Offline';
+import DetectingBaudrate from './DetectingBaudrate';
+import Operational from './Operational';
+import Printing from './Printing';
 import './style.scss';
 
 class Home extends Component {
-  renderConnectButton() {
-    // connect icons: cast_connected, add_circle, add_box, call_made, cast*, compare_arrows, data_usage, exit_to_app, flare*, gamepad, grade*, library_add, open_in_new
-
-  }
-
-  confirmAndCancelJob() {
-    let confirmCancel = window.confirm("Are you sure you want to cancel job?");
-
-    if (confirmCancel) {
-      this.props.cancelPrintJob(this.props.selectedPrinter);
-    }
-  }
-
-  moveToLoad(printer) {
-    if (printer === 'makergear') {
-      this.props.homeAxes(this.props.selectedPrinter, ['x','y','z'])
-      this.props.jogPrinthead(this.props.selectedPrinter, 'x', 100)
-      this.props.jogPrinthead(this.props.selectedPrinter, 'y', 100)
-    } else if (printer === 'lulzbot') {
-      this.props.homeAxes(this.props.selectedPrinter, ['x','y','z'])
-      this.props.jogPrinthead(this.props.selectedPrinter, 'x', 160        )
-      this.props.jogPrinthead(this.props.selectedPrinter, 'y', -80)
-      this.props.jogPrinthead(this.props.selectedPrinter, 'z', 60)
-    }
-  }
-
   render() {
     if (this.props.connectionStatus == 'Closed' || this.props.connectionStatus === 'Offline' || this.props.connectionStatus === null) {
       return(
-        <div className="home-screen-container">
-          <Row>
-            <Col s={12}>
-              <h2>Connect To Printer</h2>
-              <Button
-                floating
-                large
-                className="red connect-button"
-                waves="light"
-                icon="grade"
-                onClick={() => this.props.connectToPrinter(this.props.selectedPrinter)}
-              />
-            </Col>
-          </Row>
-          <Row>
-            <Col s={12}>
-              <Stream />
-            </Col>
-          </Row>
-        </div>
+        <Offline />
       )
     } else if (this.props.connectionStatus == 'Detecting baudrate') {
       // Detecting baudrate
       return(
-        <div className="detecting-container">
-          <Col s={12}>
-            <h1>Detecting Baudrate...</h1>
-            <Preloader flashing />
-          </Col>
-        </div>
-        )
+        <DetectingBaudrate />
+      )
 
     } else if (this.props.connectionStatus == 'Operational') {
       // Operational
       // disconnect icons: do_not_disturb_off, flash_off, gps_off
       return(
-        <div className="operational-container">
-          <Row className="operational-row">
-            <Col s={4}>
-              <Button className="purple" onClick={() => this.moveToLoad(this.props.selectedPrinter)}>
-                LOADING
-                <Icon>
-                  arrow_forward
-                </Icon>
-              </Button>
-            </Col>
-            <Col s={4}>
-              <Button
-                className="green"
-                onClick={() => this.props.setToolTemp(this.props.selectedPrinter, 210)}
-              >
-                HEAT PLA
-                <Icon>
-                  call_made
-                </Icon>
-              </Button>
-            </Col>
-            <Col s={4}>
-              <Button
-                onClick={() => this.props.setToolTemp(this.props.selectedPrinter, 220)}
-                className="green darken-2"
-              >
-                HEAT HTPLA
-                <Icon>
-                  call_made
-                </Icon>
-              </Button>
-            </Col>
-          </Row>
-          <Row className="operational-row">
-            <Col s={4}>
-              <Button
-                onClick={() => this.props.setBedTemp(this.props.selectedPrinter, 45)}
-                className="yellow darken-2"
-              >
-                BED 45
-                <Icon>
-                  grid_on
-                </Icon>
-              </Button>
-            </Col>
-            <Col s={4}>
-              <Button
-                onClick={() => this.props.setBedTemp(this.props.selectedPrinter, 60)}
-                className="yellow darken-4"
-              >
-                BED 60
-                <Icon>
-                  grid_on
-                </Icon>
-              </Button>
-            </Col>
-            <Col s={4}>
-              <Button
-                className="red darken-2"
-                onClick={() => this.props.disconnectFromPrinter(this.props.selectedPrinter)}
-              >
-                DISCONNECT
-                <Icon>
-                  highlight_off
-                </Icon>
-              </Button>
-            </Col>
-          </Row>
-        </div>
+        <Operational />
       )
     } else if (this.props.connectionStatus == 'Printing') {
       return(
-        <div className="cancel-container">
-          <Row>
-            <Col s={12}>
-              <h1>Printing...</h1>
-            </Col>
-          </Row>
-          <Row>
-            <Stream />
-          </Row>
-          <Row>
-            <Col s={12}>
-              <Button
-                className="red darken-1 cancel-button"
-                onClick={() => this.confirmAndCancelJob()}
-              >
-                Cancel Print
-              </Button>
-            </Col>
-          </Row>
-        </div>
+        <Printing />
       )
     }else {
       return(
