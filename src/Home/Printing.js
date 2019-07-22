@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Row, Col, Button, ProgressBar } from 'react-materialize';
 import { connect } from 'react-redux';
+import ReactNoSleep from 'react-no-sleep';
 
 import { cancelPrintJob } from '../actions/printerActions';
 import Stream from '../Stream';
@@ -35,8 +36,18 @@ class Printing extends Component {
     return(
       <div className="cancel-container">
         <Row>
-          <Col s={12}>
+          <Col s={8}>
             <h1>Printing...</h1>
+          </Col>
+          <Col s={4}>
+            <p className="no-sleep-heading">No Sleep Status:</p>
+            <ReactNoSleep>
+              {({ isOn, enable, disable }) => (
+                <Button className="no-sleep-button" onClick={isOn ? disable : enable}>
+                  {isOn ? 'on' : 'off'}
+                </Button>
+              )}
+            </ReactNoSleep>
           </Col>
         </Row>
         <Row className="progress-bar-row">
