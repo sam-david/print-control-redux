@@ -55,7 +55,7 @@ class PrinterSelect extends Component {
               </Col>
             </Row>
           </Col>
-          <Col s={6} className="prusa-select-button printer-select">
+          <Col s={6} className="prusa-select-button printer-select" onClick={() => this.props.selectPrinter('prusa')}>
             <Row>
               <Col s={12}>
                 <img src={prusaLogo} className='prusa-logo' />
