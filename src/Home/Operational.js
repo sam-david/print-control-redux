@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Row, Col, Button, Icon } from 'react-materialize';
 import { connect } from 'react-redux';
 
-import { connectToPrinter, setToolTemp, setBedTemp, disconnectFromPrinter } from '../actions/printerActions';
+import { connectToPrinter, setToolTemp, setBedTemp, disconnectFromPrinter, jogPrinthead, homeAxes } from '../actions/printerActions';
 import Stream from '../Stream';
 
 class Operational extends Component {
@@ -14,9 +14,18 @@ class Operational extends Component {
       this.props.jogPrinthead(this.props.selectedPrinter, 'y', 100)
     } else if (printer === 'lulzbot') {
       this.props.homeAxes(this.props.selectedPrinter, ['x','y','z'])
-      this.props.jogPrinthead(this.props.selectedPrinter, 'x', 160        )
+      this.props.jogPrinthead(this.props.selectedPrinter, 'x', 160)
       this.props.jogPrinthead(this.props.selectedPrinter, 'y', -80)
       this.props.jogPrinthead(this.props.selectedPrinter, 'z', 60)
+    } else if (printer === 'ender') {
+      this.props.homeAxes(this.props.selectedPrinter, ['x','y'])
+      this.props.jogPrinthead(this.props.selectedPrinter, 'x', 100)
+      this.props.jogPrinthead(this.props.selectedPrinter, 'y', 100)
+    } else if (printer === 'prusa') {
+      this.props.homeAxes(this.props.selectedPrinter, ['x','y','z'])
+      this.props.jogPrinthead(this.props.selectedPrinter, 'x', 100)
+      this.props.jogPrinthead(this.props.selectedPrinter, 'y', 100)
+      this.props.jogPrinthead(this.props.selectedPrinter, 'z', 50)
     }
   }
 
@@ -97,6 +106,8 @@ class Operational extends Component {
 
 Operational.propTypes = {
   connectToPrinter: PropTypes.func,
+  jogPrinthead: PropTypes.func,
+  homeAxes: PropTypes.func,
   setToolTemp: PropTypes.func,
   setBedTemp: PropTypes.func,
   disconnectFromPrinter: PropTypes.func,
@@ -109,6 +120,8 @@ const mapStateToProps = state => ({
 
 export default connect(mapStateToProps, {
   connectToPrinter,
+  jogPrinthead,
+  homeAxes,
   setToolTemp,
   setBedTemp,
   disconnectFromPrinter
