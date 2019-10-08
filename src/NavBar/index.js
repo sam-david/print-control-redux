@@ -39,9 +39,9 @@ class NavBar extends Component {
             call_to_action
           </Icon>
         </Col>
-        <Col s={2} onClick={() => this.props.selectPage('Nanoleaf')} className={this.props.selectedPage === 'Nanoleaf' ? 'nav-button active-nav' : 'nav-button'}>
+        <Col s={2} onClick={() => this.props.selectPage('StreamView')} className={this.props.selectedPage === 'StreamView' ? 'nav-button active-nav' : 'nav-button'}>
           <Icon className="nav-icon">
-            change_history
+            camera_alt
           </Icon>
         </Col>
       </Row>

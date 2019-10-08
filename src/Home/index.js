@@ -5,7 +5,6 @@ import { connect } from 'react-redux';
 
 import { connectToPrinter, homeAxes, setToolTemp, setBedTemp, disconnectFromPrinter, jogPrinthead, cancelPrintJob } from '../actions/printerActions';
 
-import Stream from '../Stream';
 import Offline from './Offline';
 import DetectingBaudrate from './DetectingBaudrate';
 import Operational from './Operational';
@@ -41,9 +40,6 @@ class Home extends Component {
             <Col s={12}>
               <h1>Connecting...</h1>
             </Col>
-          </Row>
-          <Row>
-            <Stream />
           </Row>
         </div>
       )

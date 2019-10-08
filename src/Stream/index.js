@@ -14,13 +14,15 @@ class Stream extends Component {
   }
 
   render() {
-    if (this.props.selectedPrinter != 'ender') {
+    if (this.props.selectedPrinter != 'ender' && this.props.selectedPrinter != 'prusa') {
       return(
         <img className="stream-image" src={this.streamUrl(this.props.selectedPrinter)} />
       )
     } else {
       return(
-        <div />
+        <div>
+          <h2>No Stream Setup</h2>
+        </div>
       )
     }
   }
