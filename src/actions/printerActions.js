@@ -3,7 +3,7 @@ import superagent from 'superagent';
 import { NotificationManager} from 'react-notifications';
 
 import { successConsoleLog, errorConsoleLog, pingConsoleLog, phatConsoleLog, eventConsoleLog } from '../utilities/consoleLog';
-import { printerCredentials } from '../utilities/printer-credentials';
+import { printerOctoCredentials } from '../utilities/printerCredentials';
 
 const capitalize = (s) => {
   if (typeof s !== 'string') return ''
@@ -14,7 +14,7 @@ export const homeAxes = (printer, axes) => dispatch => {
   // Input: axes = ['x', 'y', 'z']
   console.log('homeAxes', printer, 'axes:', axes)
   // NotificationManager.info('Started Homing', axes.join(", "))
-  let credentials = printerCredentials(printer);
+  let credentials = printerOctoCredentials(printer);
   superagent
     .post(credentials.url + '/api/printer/printhead')
     .send({
@@ -32,7 +32,7 @@ export const homeAxes = (printer, axes) => dispatch => {
 export const getFiles = (printer) => dispatch => {
   // Input: axes = ['x', 'y', 'z']
   console.log('getFiles', printer)
-  let credentials = printerCredentials(printer);
+  let credentials = printerOctoCredentials(printer);
   superagent
       .get(credentials.url + '/api/files')
       .set('X-Api-Key', credentials.apiKey)
@@ -47,13 +47,11 @@ export const getFiles = (printer) => dispatch => {
       });
 }
 
-export const jogPrinthead = (printer, axes, distance) => dispatch => {
-  // Input: axes = 'x', distance = 12 (mm)
-  let credentials = printerCredentials(printer);
-  let requestBody = { command: 'jog' }
-  requestBody[axes] = distance
-
-  // NotificationManager.info('Jogging | ' + axes.toUpperCase() + ' | ' + distance + ' mm.')
+export const jogPrinthead = (printer, axes) => dispatch => {
+  // Input: axes = {x: 10, y: 50}
+  let credentials = printerOctoCredentials(printer);
+  let requestBody = axes;
+  requestBody.command = 'jog';
 
   superagent
     .post(credentials.url + '/api/printer/printhead')
@@ -61,14 +59,16 @@ export const jogPrinthead = (printer, axes, distance) => dispatch => {
     .set('X-Api-Key', credentials.apiKey)
     .end((err, res) => {
       if (err) { errorConsoleLog('jogPrinthead', err); }
-      NotificationManager.success('Jogging | ' + axes.toUpperCase() + ' | ' + distance + ' mm.')
+      delete requestBody.command;
+      let axesChange = JSON.stringify(axes);
+      NotificationManager.success('Jogging | ' + axesChange)
       successConsoleLog('jogPrinthead', res);
     });
 }
 
 export const extrudeTool = (printer, amount) => dispatch => {
   // NotificationManager.info('Extruding | ' + amount + ' mm.')
-  let credentials = printerCredentials(printer);
+  let credentials = printerOctoCredentials(printer);
   let requestBody = {
       command: 'extrude',
       amount: parseInt(amount)
@@ -91,7 +91,7 @@ export const extrudeTool = (printer, amount) => dispatch => {
 
 export const setToolTemp = (printer, temp) => dispatch => {
   // NotificationManager.info('Setting Tool Temp | ' + temp + "°C")
-  let credentials = printerCredentials(printer);
+  let credentials = printerOctoCredentials(printer);
   let requestBody = {
       command: 'target',
       targets: {
@@ -115,7 +115,7 @@ export const setToolTemp = (printer, temp) => dispatch => {
 }
 
 export const setBedTemp = (printer, temp) => dispatch => {
-  let credentials = printerCredentials(printer);
+  let credentials = printerOctoCredentials(printer);
   let requestBody = {
     command: 'target',
     target: temp
@@ -137,7 +137,7 @@ export const setBedTemp = (printer, temp) => dispatch => {
 }
 
 export const connectToPrinter = (printer) => dispatch => {
-  let credentials = printerCredentials(printer);
+  let credentials = printerOctoCredentials(printer);
   superagent
     .post(credentials.url + '/api/connection')
     .send({ command: 'connect'})
@@ -159,7 +159,7 @@ export const connectToPrinter = (printer) => dispatch => {
 }
 
 export const disconnectFromPrinter = (printer) => dispatch => {
-  let credentials = printerCredentials(printer);
+  let credentials = printerOctoCredentials(printer);
   superagent
     .post(credentials.url + '/api/connection')
     .send({ command: 'disconnect'})
@@ -179,7 +179,7 @@ export const disconnectFromPrinter = (printer) => dispatch => {
 
 export const cancelPrintJob = (printer) => dispatch => {
   eventConsoleLog('cancel_job', printer)
-  let credentials = printerCredentials(printer);
+  let credentials = printerOctoCredentials(printer);
 
   superagent
     .post(credentials.url + '/api/job')
@@ -193,7 +193,7 @@ export const cancelPrintJob = (printer) => dispatch => {
 }
 
 export const selectAndPrintFile = (printer, file) => dispatch => {
-  let credentials = printerCredentials(printer);
+  let credentials = printerOctoCredentials(printer);
 
   superagent
     .post(credentials.url + '/api/files/local/' + file.path)
@@ -216,7 +216,7 @@ export const selectPrinter = (printer) => dispatch => {
 }
 
 export const pingJobStatus = (printer) => dispatch => {
-  let credentials = printerCredentials(printer);
+  let credentials = printerOctoCredentials(printer);
   superagent
     .get(credentials.url + '/api/job')
     .set('X-Api-Key', credentials.apiKey)
@@ -235,7 +235,7 @@ export const pingJobStatus = (printer) => dispatch => {
 
 export const pingConnectionStatus = (printer) => dispatch => {
   // TODO: is this irrelevant with the pingPrinterStatus (printerstatus)?
-  let credentials = printerCredentials(printer);
+  let credentials = printerOctoCredentials(printer);
   superagent
     .get(credentials.url + '/api/connection')
     .set('X-Api-Key', credentials.apiKey)
@@ -253,7 +253,7 @@ export const pingConnectionStatus = (printer) => dispatch => {
 }
 
 export const pingPrinterStatus = (printer) => dispatch => {
-  let credentials = printerCredentials(printer);
+  let credentials = printerOctoCredentials(printer);
   superagent
     .get(credentials.url + '/api/printer')
     .set('X-Api-Key', credentials.apiKey)

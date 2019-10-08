@@ -4,13 +4,13 @@ import { Row, Col, Button} from 'react-materialize';
 import { connect } from 'react-redux';
 
 import { connectToPrinter } from '../actions/printerActions';
-import { printerCredentials } from '../utilities/printer-credentials';
+import { printerOctoCredentials } from '../utilities/printerCredentials';
 
 import './style.scss';
 
 class Stream extends Component {
   streamUrl(printer) {
-    return printerCredentials(printer).url + "/webcam/?action=stream"
+    return printerOctoCredentials(printer).url + "/webcam/?action=stream"
   }
 
   render() {

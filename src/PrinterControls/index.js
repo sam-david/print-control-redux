@@ -32,11 +32,7 @@ class PrinterControls extends Component {
     } else if (this.props.printerStatus != 'Printing') {
       return(
         <div>
-          <Row className="extrude-row">
-            <Col s={12} className="extrude-column">
-              <Extrude />
-            </Col>
-          </Row>
+          <Extrude />
           <Row>
             <Col s={12} className="printer-control-column">
               <Temp />
@@ -66,7 +62,8 @@ class PrinterControls extends Component {
 const mapStateToProps = state => ({
   selectedPage: state.nav.selectedPage,
   printerStatus: state.printers.printerStatus,
-  connectionStatus: state.printers.connectionStatus
+  connectionStatus: state.printers.connectionStatus,
+  selectedPrinter: state.printers.selectedPrinter
 })
 
 export default connect(mapStateToProps, { connectToPrinter })(PrinterControls);

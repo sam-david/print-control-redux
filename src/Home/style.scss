@@ -24,8 +24,11 @@
 .operational-row {
   button {
     height: 100px;
-    width: 270px;
+    width: 400px;
     font-size: 1.6rem;
+  }
+  .large-width-button {
+    width: 600px;
   }
   i {
     font-size: 1.6rem;

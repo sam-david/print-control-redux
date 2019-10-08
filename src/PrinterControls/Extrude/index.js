@@ -16,7 +16,7 @@ class Extrude extends Component {
   }
 
   extrudeWithTimeout(amount) {
-    let extrudeTimeout = 800;
+    let extrudeTimeout = 500;
     if (this.state.safeToExtrude) {
       this.setState({safeToExtrude: false});
       this.props.extrudeTool(this.props.selectedPrinter, amount);
@@ -146,7 +146,7 @@ class Extrude extends Component {
       )
     } else {
       return(
-        <div />
+        <div className="hidden-div"/>
       )
     }
   }
