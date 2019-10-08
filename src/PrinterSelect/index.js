@@ -18,17 +18,6 @@ import './style.scss';
 
 class PrinterSelect extends Component {
   render() {
-    let makergearConnectIcon;
-    let lulzbotConnectIcon;
-
-    if (this.props.selectedPrinter == 'makergear') {
-      makergearConnectIcon = <img src={connectedIcon} />;
-      lulzbotConnectIcon = <p></p>;
-    } else {
-      makergearConnectIcon = <p></p>;
-      lulzbotConnectIcon = <img src={connectedIcon} />;
-    }
-
     return (
       <div className="printer-select-container">
         <Row className="printer-select-row">

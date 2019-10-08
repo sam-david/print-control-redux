@@ -13,45 +13,41 @@ import Printing from './Printing';
 import './style.scss';
 
 class Home extends Component {
-  // render() {
-  //   if (this.props.connectionStatus == 'Closed' || this.props.connectionStatus === 'Offline' || this.props.connectionStatus === null) {
-  //     return(
-  //       <Offline />
-  //     )
-  //   } else if (this.props.connectionStatus == 'Detecting baudrate') {
-  //     // Detecting baudrate
-  //     return(
-  //       <DetectingBaudrate />
-  //     )
-
-  //   } else if (this.props.connectionStatus == 'Operational') {
-  //     // Operational
-  //     // disconnect icons: do_not_disturb_off, flash_off, gps_off
-  //     return(
-  //       <Operational />
-  //     )
-  //   } else if (this.props.connectionStatus == 'Printing') {
-  //     return(
-  //       <Printing />
-  //     )
-  //   }else {
-  //     return(
-  //       <div className="cancel-container">
-  //         <Row>
-  //           <Col s={12}>
-  //             <h1>Connecting...</h1>
-  //           </Col>
-  //         </Row>
-  //         <Row>
-  //           <Stream />
-  //         </Row>
-  //       </div>
-  //     )
-  //   }
-  // }
-
   render() {
-    return ( <Operational />)
+    if (this.props.connectionStatus == 'Closed' || this.props.connectionStatus === 'Offline' || this.props.connectionStatus === null) {
+      return(
+        <Offline />
+      )
+    } else if (this.props.connectionStatus == 'Detecting baudrate') {
+      // Detecting baudrate
+      return(
+        <DetectingBaudrate />
+      )
+
+    } else if (this.props.connectionStatus == 'Operational') {
+      // Operational
+      // disconnect icons: do_not_disturb_off, flash_off, gps_off
+      return(
+        <Operational />
+      )
+    } else if (this.props.connectionStatus == 'Printing') {
+      return(
+        <Printing />
+      )
+    }else {
+      return(
+        <div className="cancel-container">
+          <Row>
+            <Col s={12}>
+              <h1>Connecting...</h1>
+            </Col>
+          </Row>
+          <Row>
+            <Stream />
+          </Row>
+        </div>
+      )
+    }
   }
 }
 

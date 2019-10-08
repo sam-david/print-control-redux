@@ -67,7 +67,8 @@ export default function(state = initialState, action) {
         toolTempTarget: action.payload.toolTempTarget,
         bedTemp: action.payload.bedTemp,
         bedTempTarget: action.payload.bedTempTarget,
-        printerStatus: action.payload.printerStatus
+        printerStatus: action.payload.printerStatus,
+        connectionStatus: action.payload.printerStatus
       };
     case SELECT_PRINTER:
       if (state.selectedPrinter != action.printer) {
