@@ -25,10 +25,16 @@ class Operational extends Component {
 
     let selectedPrinter = this.props.selectedPrinter;
     if (selectedPrinter == 'prusa' || selectedPrinter == 'lulzbot') {
-      NotificationManager.error('Bed Leveling Complete!');
+      NotificationManager.error('Cannot Level Printer');
     } else {
+      NotificationManager.success('Starting Stage: ' + this.state.bedLevelingStage);
+      let cornerOffset;
+      if (selectedPrinter == 'makergear') {
+        cornerOffset = 50;
+      } else if (selectedPrinter == 'ender') {
+        cornerOffset = 30;
+      }
       let selectedPrinterStats = printerStats(selectedPrinter);
-      let cornerOffset = 50;
       let xLength = selectedPrinterStats.xMax - (cornerOffset * 2);
       let yLength = selectedPrinterStats.yMax - (cornerOffset * 2);
       let jogAxesDistance;
@@ -36,13 +42,16 @@ class Operational extends Component {
 
       switch(this.state.bedLevelingStage) {
         case 0:
+          // TODO: Investigate with makergear
           this.props.homeAxes(this.props.selectedPrinter, ['x','y','z']);
           break;
         case 1:
           // Pos 1
           jogAxesDistance = {
+            speed: 2000,
             x: cornerOffset,
-            y: cornerOffset
+            y: cornerOffset,
+            z: 15,
           }
           this.props.jogPrinthead(this.props.selectedPrinter, jogAxesDistance)
 
