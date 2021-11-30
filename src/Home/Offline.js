@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Row, Col, Button } from 'react-materialize';
+import { Row, Col, Button, Icon } from 'react-materialize';
 import { connect } from 'react-redux';
 
 import { connectToPrinter } from '../actions/printerActions';
@@ -23,9 +23,12 @@ class Offline extends Component {
               large
               className="red connect-button"
               waves="light"
-              icon="grade"
               onClick={() => this.props.connectToPrinter(this.props.selectedPrinter)}
-            />
+            >
+              <Icon>
+                add
+              </Icon>
+            </Button>
           </Col>
         </Row>
         <Row>
