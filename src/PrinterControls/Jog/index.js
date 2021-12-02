@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Row, Col, Table, Button } from 'react-materialize';
+import { Row, Col, Table, Button, Icon } from 'react-materialize';
 import { connect } from 'react-redux';
 
 import { jogPrinthead, homeAxes } from '../../actions/printerActions';
@@ -8,6 +8,7 @@ import {NotificationContainer, NotificationManager} from 'react-notifications';
 
 
 import './style.scss';
+// import Icon from 'react-materialize/lib/Icon';
 
 class Jog extends Component {
   constructor(props) {
@@ -19,7 +20,7 @@ class Jog extends Component {
   }
 
 
-  // button icons: add_circle_outline, add_circle, add_box, add, arrow_upward, arrow_drop_down_circle, arrow_drop_up, keyboard_arrow_down, keyboard_arrow_left, keyboard_arrow_right, keyboard_arrow_up
+  // button icons: add_circle_outline, add_circle, add_box, add, ArrowUpward, arrow_drop_down_circle, arrow_drop_up, keyboard_arrow_down, keyboard_arrow_left, keyboard_arrow_right, keyboard_arrow_up
   jogWithTimeout(axis) {
     let jogTimeout = 500;
     if (this.state.safeToJog) {
@@ -59,7 +60,6 @@ class Jog extends Component {
                 node="a"
                 waves="light"
                 large
-                icon="arrow_upward"
                 onClick={() => this.jogWithTimeout({z: 100})}
               >
                 100
@@ -89,7 +89,6 @@ class Jog extends Component {
                 node="a"
                 waves="light"
                 large
-                icon="arrow_upward"
                 onClick={() => this.jogWithTimeout({z: 50})}
               >
                 50
@@ -119,7 +118,6 @@ class Jog extends Component {
                 node="a"
                 waves="light"
                 large
-                icon="arrow_upward"
                 onClick={() => this.jogWithTimeout({z: 10})}
               >
                 10
@@ -146,10 +144,8 @@ class Jog extends Component {
             <td></td>
             <td className="jog-z-cell">
               <Button
-                node="a"
                 waves="light"
                 large
-                icon="arrow_upward"
                 onClick={() => this.jogWithTimeout({z: 5})}
               >
                 5
@@ -199,9 +195,12 @@ class Jog extends Component {
                 large
                 className="red"
                 waves="light"
-                icon="gps_fixed"
                 onClick={() => this.props.homeAxes(this.props.selectedPrinter, ['x', 'y'])}
-              />
+              >
+                <Icon className='home-icon'>
+                  home
+                </Icon>
+              </Button>
            </td>
            <td>
               <Button
@@ -245,9 +244,12 @@ class Jog extends Component {
                 large
                 className="red"
                 waves="light"
-                icon="border_horizontal"
                 onClick={() => this.props.homeAxes(this.props.selectedPrinter, ['z'])}
-              />
+              >
+                <Icon className='home-icon'>
+                  home
+                </Icon>
+              </Button>
             </td>
           </tr>
           <tr>
@@ -273,8 +275,6 @@ class Jog extends Component {
                 node="a"
                 waves="light"
                 large
-
-                icon="arrow_downward"
                 onClick={() => this.jogWithTimeout({z: -5})}
               >
                 -5
@@ -304,7 +304,6 @@ class Jog extends Component {
                 node="a"
                 waves="light"
                 large
-                icon="arrow_downward"
                 onClick={() => this.jogWithTimeout({z: -10})}
               >
                 -10
@@ -334,7 +333,6 @@ class Jog extends Component {
                 node="a"
                 waves="light"
                 large
-                icon="arrow_downward"
                 onClick={() => this.jogWithTimeout({z: -50})}
               >
                 -50
@@ -364,7 +362,6 @@ class Jog extends Component {
                 node="a"
                 waves="light"
                 large
-                icon="arrow_downward"
                 onClick={() => this.jogWithTimeout({z: -100})}
               >
                 -100

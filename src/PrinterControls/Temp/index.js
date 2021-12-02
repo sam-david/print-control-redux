@@ -117,9 +117,12 @@ class Temp extends Component {
               large
               className="red"
               waves="light"
-              icon="flash_off"
               onClick={this.turnOffToolhead}
-            />
+            >
+              <Icon className="off-icon">
+                close
+              </Icon>
+            </Button>
           </Col>
         </Row>
         <Row className="temp-row bottom">
@@ -142,9 +145,12 @@ class Temp extends Component {
               large
               className="red"
               waves="light"
-              icon="grid_off"
               onClick={this.turnOffBed}
-            />
+            >
+              <Icon className='off-icon'>
+                close
+              </Icon>
+            </Button>
           </Col>
         </Row>
       </div>
